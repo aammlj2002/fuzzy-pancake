@@ -4,6 +4,8 @@ const reducers = (state = [{ foo: "bar" }], action) => {
             return state;
         case "ADD_POST":
             return state.push(action.payload);
+        case "CREATE_POST":
+            return state.push(action.payload.data);
         default:
             return state;
     }

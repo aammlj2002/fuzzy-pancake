@@ -12,7 +12,6 @@ const App = (props) => {
     }, [post]);
     const handleClick = () => {
         dispatch(addPost({ name: "aamm" }));
-        console.log(post);
     };
     return (
         <>
