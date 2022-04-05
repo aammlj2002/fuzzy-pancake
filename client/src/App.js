@@ -1,22 +1,17 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addPost } from "./actions/post";
+import { useDispatch } from "react-redux";
 import Form from "./components/Form";
 import Posts from "./components/Posts";
+import { fetchPosts } from "./feature/post/postSlice";
 
 const App = (props) => {
     const dispatch = useDispatch();
-    const post = useSelector((state) => state);
     useEffect(() => {
-        console.log(post);
-    }, [post]);
-    const handleClick = () => {
-        dispatch(addPost({ name: "aamm" }));
-    };
+        dispatch(fetchPosts());
+    }, [dispatch]);
     return (
         <>
             <div>app</div>
-            <button onClick={handleClick}>add</button>
             <Form />
             <Posts />
         </>
