@@ -8,7 +8,13 @@ function Posts() {
         <>
             <div>Posts</div>
             {posts.length ? (
-                posts.map((post) => <div key={post._id}>{post.title}</div>)
+                posts.map((post) => (
+                    <div key={post._id}>
+                        <p>Title - {post.title}</p>
+                        <p>Description - {post.description}</p>
+                        <hr />
+                    </div>
+                ))
             ) : (
                 <div>loading...</div>
             )}

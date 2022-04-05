@@ -1,10 +1,20 @@
-GET  http://localhost:8000/posts/
+GET http://localhost:8000/posts/
 
 ###
-POST   http://localhost:8000/posts/create
+POST http://localhost:8000/posts/create
 Content-Type: application/json
 
 {
     "title": "title1",
+    "description": "description1"
+}
+
+
+###
+PATCH http://localhost:8000/posts/update/62480dc801f4aefc5ee80db8
+Content-Type: application/json
+
+{
+    "title": "Hello",
     "description": "description1"
 }

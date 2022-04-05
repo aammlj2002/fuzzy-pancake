@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Post from "../Models/Post.js";
 
 const index = async (req, res) => {
@@ -18,4 +19,13 @@ const create = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 };
-export { index, create };
+const update = async (req, res) => {
+    const { id } = req.params;
+    const post = req.body;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).send("post with this id not found");
+    }
+    const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
+    res.json(updatedPost);
+};
+export { index, create, update };
