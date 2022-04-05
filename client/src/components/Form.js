@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createPosts } from "../feature/post/postSlice";
 
 function Form() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const dispatch = useDispatch();
     const hadleSubmit = (e) => {
         e.preventDefault();
+        dispatch(createPosts({ title, description }));
     };
     return (
         <>
