@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost, setEditPost, likePost } from "../feature/post/postSlice";
+import {
+    deletePost,
+    setEditPost,
+    likePost,
+} from "../../feature/post/postSlice";
 
 function Posts() {
     const dispatch = useDispatch();

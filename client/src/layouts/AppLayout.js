@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 function Layout() {
     return (
-        <div>
+        <div className="bg-gray-100">
             <div>header</div>
             <div>
                 <Outlet />
