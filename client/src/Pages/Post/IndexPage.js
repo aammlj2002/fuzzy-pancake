@@ -1,10 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostCard from "../../components/PostCard";
-import { likePost } from "../../feature/post/postSlice";
 
 function Posts() {
-    const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts.posts);
     return (
         <>
