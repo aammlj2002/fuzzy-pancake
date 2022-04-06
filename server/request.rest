@@ -21,3 +21,5 @@ Content-Type: application/json
 
 ###
 DELETE  http://localhost:8000/posts/delete/624d12de20f07708a92a2e72
+###
+PATCH   http://localhost:8000/posts/like/624d18ac61f4aa2cd0ede92c
