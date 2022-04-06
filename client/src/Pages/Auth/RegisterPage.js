@@ -1,5 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Label from "../../components/element/Label";
+import Input from "../../components/element/Input";
+import Button from "../../components/element/Button";
+import Anchor from "../../components/element/Anchor";
 function RegisterPage() {
     return (
         <>
@@ -10,52 +13,34 @@ function RegisterPage() {
                 <form autoComplete="off">
                     {/* username */}
                     <div className="mb-5">
-                        <label className="mb-1 text-sm text-gray-900">
-                            Username
-                        </label>
-                        <input className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" />
+                        <Label text="Username" />
+                        <Input />
                     </div>
 
                     {/* email */}
                     <div className="mb-5">
-                        <label className="mb-1 text-sm text-gray-900">
-                            Email
-                        </label>
-                        <input className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" />
+                        <Label text="Email" />
+                        <Input />
                     </div>
 
                     {/* passowrd */}
                     <div className="mb-5">
-                        <label className="mb-1 text-sm text-gray-900">
-                            Password
-                        </label>
-                        <input className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" />
+                        <Label text="Password" />
+                        <Input />
                     </div>
 
                     {/* comfirm password */}
                     <div>
-                        <label className="mb-1 text-sm text-gray-900">
-                            Confirm Password
-                        </label>
-                        <input className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" />
+                        <Label text="Confirm Password" />
+                        <Input />
                     </div>
                     <div className="flex w-full mt-6">
-                        <button
-                            type="submit"
-                            className="w-full px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-blue-500 rounded-lg shadow-md hover:bg-blue-600"
-                        >
-                            Sign up
-                        </button>
+                        <Button type="submit">Sign in</Button>
                     </div>
                 </form>
             </div>
             <div className="flex items-center justify-center mt-6">
-                <Link
-                    className="inline-flex items-center text-sm font-light text-center text-gray-500 underline hover:text-gray-700"
-                    to="/login"
-                >
-                    <span className="ml-2">Already have account?</span>
-                </Link>
+                <Anchor text="Already have account?" to="/login"></Anchor>
             </div>
         </>
     );
