@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost, setEditPost } from "../feature/post/postSlice";
+import { deletePost, setEditPost, likePost } from "../feature/post/postSlice";
 
 function Posts() {
     const dispatch = useDispatch();
@@ -16,6 +16,7 @@ function Posts() {
                     <div key={post._id}>
                         <p>Title - {post.title}</p>
                         <p>Description - {post.description}</p>
+                        <p>Like - {post.likeCount}</p>
                         <button onClick={() => handleEditPost(post)}>
                             Edit
                         </button>
@@ -25,6 +26,11 @@ function Posts() {
                             }
                         >
                             delete
+                        </button>
+                        <button
+                            onClick={() => dispatch(likePost({ id: post._id }))}
+                        >
+                            like
                         </button>
                         <hr />
                     </div>
