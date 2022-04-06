@@ -5,9 +5,6 @@ import { deletePost, setEditPost, likePost } from "../feature/post/postSlice";
 function Posts() {
     const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts.posts);
-    const handleEditPost = (post) => {
-        dispatch(setEditPost(post));
-    };
     return (
         <>
             <div>Posts</div>
@@ -17,7 +14,7 @@ function Posts() {
                         <p>Title - {post.title}</p>
                         <p>Description - {post.description}</p>
                         <p>Like - {post.likeCount}</p>
-                        <button onClick={() => handleEditPost(post)}>
+                        <button onClick={() => dispatch(setEditPost(post))}>
                             Edit
                         </button>
                         <button

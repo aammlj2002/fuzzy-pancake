@@ -7,6 +7,8 @@ import { fetchPosts } from "./feature/post/postSlice";
 
 const App = (props) => {
     const dispatch = useDispatch();
+
+    // fetch post after app component is rendered
     useEffect(() => {
         dispatch(fetchPosts());
     }, [dispatch]);

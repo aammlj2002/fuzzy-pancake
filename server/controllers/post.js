@@ -1,8 +1,16 @@
 import mongoose from "mongoose";
 import Post from "../Models/Post.js";
 
+// check that is the inputed item exist in database
+const isItemExist = (id) => {
+    if (!mongoose.isValidObjectId(id)) {
+        return res.status(404).send("post with this id not found");
+    }
+};
+
 const index = async (req, res) => {
     try {
+        // get all post
         const post = await Post.find();
         res.status(200).json(post);
     } catch (error) {
@@ -12,6 +20,7 @@ const index = async (req, res) => {
 const create = async (req, res) => {
     const data = req.body;
     try {
+        // create post
         const post = await Post.create(data);
         res.status(201).json(post);
     } catch (error) {
@@ -21,13 +30,12 @@ const create = async (req, res) => {
 const update = async (req, res) => {
     const { id } = req.params;
     const post = req.body;
-    if (!mongoose.isValidObjectId(id)) {
-        return res.status(404).send("post with this id not found");
-    }
+    isItemExist(id);
     try {
+        // update post
         const updatedPost = await Post.findByIdAndUpdate(id, post, {
             new: true,
-        });
+        }); // new option "true" is to get response data only after update
         return res.send(200).json(updatedPost);
     } catch (error) {
         res.status(409).json({ message: error.message });
@@ -35,16 +43,10 @@ const update = async (req, res) => {
 };
 const destroy = async (req, res) => {
     const { id } = req.params;
-    if (!mongoose.isValidObjectId(id)) {
-        return res.status(404).send("post with this id not found");
-    }
+    isItemExist(id);
     try {
-        const post = await Post.findByIdAndRemove(id);
-        if (!post) {
-            return res
-                .status(400)
-                .json({ message: "post with this id not found" });
-        }
+        // remove selected post
+        await Post.findByIdAndRemove(id);
         res.status(200).json({ id });
     } catch (error) {
         res.status(409).json({ message: error.message });
@@ -52,18 +54,18 @@ const destroy = async (req, res) => {
 };
 const addLike = async (req, res) => {
     const { id } = req.params;
-    if (!mongoose.isValidObjectId(id)) {
-        return res.status(404).send("post with this id not found");
-    }
+    isItemExist(id);
     try {
+        // find liked post
         const post = await Post.findById(id);
-        console.log(post);
+
+        // update like
         const likedPost = await Post.findByIdAndUpdate(
             id,
             {
-                likeCount: post.likeCount + 1,
+                likeCount: post.likeCount + 1, // increase likeCound field by 1
             },
-            { new: true }
+            { new: true } // new option "true" is to get response data only after update
         );
         return res.status(200).json(likedPost);
     } catch (error) {

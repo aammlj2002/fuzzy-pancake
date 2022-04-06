@@ -1,15 +1,17 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const url = "http://localhost:8000/posts";
+
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-    const res = await axios.get("http://localhost:8000/posts/");
+    const res = await axios.get(`${url}`);
     return res.data;
 });
 export const createPost = createAsyncThunk(
     "posts/createPost",
     async ({ title, description }) => {
         const res = await axios.post(
-            "http://localhost:8000/posts/create",
+            `${url}/create`,
             {
                 title,
                 description,
@@ -28,7 +30,7 @@ export const updatePost = createAsyncThunk(
     async ({ id, title, description }) => {
         try {
             const res = await axios.patch(
-                `http://localhost:8000/posts/update/${id}`,
+                `${url}/update/${id}`,
                 {
                     title,
                     description,
@@ -49,9 +51,7 @@ export const deletePost = createAsyncThunk(
     "posts/deletePost",
     async ({ id }) => {
         try {
-            const res = await axios.delete(
-                `http://localhost:8000/posts/delete/${id}`
-            );
+            const res = await axios.delete(`${url}/delete/${id}`);
             return res.data;
         } catch (error) {
             console.log(error.message);
@@ -61,7 +61,7 @@ export const deletePost = createAsyncThunk(
 
 export const likePost = createAsyncThunk("posts/likePost", async ({ id }) => {
     try {
-        const res = await axios.patch(`http://localhost:8000/posts/like/${id}`);
+        const res = await axios.patch(`${url}/like/${id}`);
         return res.data;
     } catch (error) {
         console.log(error.message);
