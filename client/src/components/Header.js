@@ -4,25 +4,28 @@ function Header() {
     return (
         <>
             <div>
-                <nav className="bg-gray-800 shadow-md">
+                <nav className="bg-gray-200 shadow-sm">
                     <div className="px-8 mx-auto max-w-7xl">
                         <div className="flex items-center justify-between h-16">
                             <div className="flex items-center justify-between w-full">
-                                <div className="flex flex-row justify-start">
-                                    <a className="text-2xl text-white" href="/">
+                                <div className="flex flex-row items-center justify-start ">
+                                    <a
+                                        className="text-2xl text-black "
+                                        href="/"
+                                    >
                                         MERN
                                     </a>
                                     {/* navigation */}
                                     <div className="block">
                                         <div className="flex items-baseline ml-10 space-x-4">
                                             <a
-                                                className="px-3 py-2 text-sm font-medium text-gray-300 transition-all rounded-md hover:text-white"
+                                                className="px-3 py-2 text-sm font-medium text-gray-600 transition-all rounded-md hover:text-gray-800"
                                                 href="/"
                                             >
                                                 Home
                                             </a>
                                             <a
-                                                className="px-3 py-2 text-sm font-medium text-gray-300 transition-all rounded-md hover:text-white"
+                                                className="px-3 py-2 text-sm font-medium text-gray-600 transition-all rounded-md hover:text-gray-800"
                                                 href="/"
                                             >
                                                 About
@@ -42,7 +45,7 @@ function Header() {
                                 </svg>
                                 <input
                                     type="text"
-                                    className="block  w-full py-1.5 pl-10 pr-4 leading-normal rounded-2xl focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 ring-opacity-90  bg-gray-600 text-gray-400 aa-input"
+                                    className="block  w-full py-1.5 pl-10 pr-4 leading-normal rounded-2xl focus:border-transparent focus:outline-none focus:ring-2 focus:ring-gray-500 ring-opacity-90  bg-gray-300 text-gray-400 aa-input"
                                     placeholder="Search"
                                 />
                             </div>
