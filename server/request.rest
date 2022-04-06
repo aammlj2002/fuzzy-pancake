@@ -18,3 +18,6 @@ Content-Type: application/json
     "title": "Hello",
     "description": "description1"
 }
+
+###
+DELETE  http://localhost:8000/posts/delete/624d11447d5fec1b5200808f

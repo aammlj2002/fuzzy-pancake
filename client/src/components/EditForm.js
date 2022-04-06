@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePost } from "../feature/post/postSlice";
 
 function EditForm() {
+    const dispatch = useDispatch();
     const editPost = useSelector((state) => state.posts.editPost);
+    const id = editPost._id;
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     useEffect(() => {
@@ -11,7 +14,7 @@ function EditForm() {
     }, [editPost]);
     const hadleSubmit = (e) => {
         e.preventDefault();
-        console.log("foo");
+        dispatch(updatePost({ id, title, description }));
     };
     return (
         <>

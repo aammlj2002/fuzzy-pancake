@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPosts } from "../feature/post/postSlice";
+import { createPost } from "../feature/post/postSlice";
 
 function Form() {
     const [title, setTitle] = useState("");
@@ -9,7 +9,7 @@ function Form() {
 
     const hadleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createPosts({ title, description }));
+        dispatch(createPost({ title, description }));
         setTitle("");
         setDescription("");
     };
