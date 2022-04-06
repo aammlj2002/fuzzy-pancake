@@ -45,7 +45,7 @@ const destroy = async (req, res) => {
                 .status(400)
                 .json({ message: "post with this id not found" });
         }
-        res.status(200).json(id);
+        res.status(200).json({ id });
     } catch (error) {
         res.status(409).json({ message: error.message });
     }

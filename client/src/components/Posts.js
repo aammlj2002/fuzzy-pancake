@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setEditPost } from "../feature/post/postSlice";
+import { deletePost, setEditPost } from "../feature/post/postSlice";
 
 function Posts() {
     const dispatch = useDispatch();
@@ -19,7 +19,13 @@ function Posts() {
                         <button onClick={() => handleEditPost(post)}>
                             Edit
                         </button>
-                        <button>delete</button>
+                        <button
+                            onClick={() =>
+                                dispatch(deletePost({ id: post._id }))
+                            }
+                        >
+                            delete
+                        </button>
                         <hr />
                     </div>
                 ))
