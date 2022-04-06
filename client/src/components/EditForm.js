@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createPosts } from "../feature/post/postSlice";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-function Form() {
+function EditForm() {
+    const editPost = useSelector((state) => state.posts.editPost);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const dispatch = useDispatch();
-
+    useEffect(() => {
+        setTitle(editPost.title);
+        setDescription(editPost.description);
+    }, [editPost]);
     const hadleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createPosts({ title, description }));
-        setTitle("");
-        setDescription("");
+        console.log("foo");
     };
     return (
         <>
             <fieldset>
-                <h3>create</h3>
+                <h3>edit</h3>
                 <form onSubmit={hadleSubmit}>
                     <label>title</label>
                     <input
@@ -38,4 +38,4 @@ function Form() {
     );
 }
 
-export default Form;
+export default EditForm;

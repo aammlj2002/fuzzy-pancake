@@ -23,12 +23,21 @@ export const createPosts = createAsyncThunk(
         return res.data;
     }
 );
+
 const postSlice = createSlice({
     name: "Posts",
     initialState: {
         posts: {},
+        editPost: {
+            title: "",
+            description: "",
+        },
     },
-    reducers: {},
+    reducers: {
+        setEditPost: (state, action) => {
+            state.editPost = action.payload;
+        },
+    },
     extraReducers: {
         [fetchPosts.fulfilled]: (state, action) => {
             return { ...state, posts: action.payload };
@@ -38,5 +47,5 @@ const postSlice = createSlice({
         },
     },
 });
-
+export const { setEditPost } = postSlice.actions;
 export default postSlice.reducer;
