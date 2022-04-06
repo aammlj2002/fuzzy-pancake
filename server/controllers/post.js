@@ -30,13 +30,15 @@ const create = async (req, res) => {
 const update = async (req, res) => {
     const { id } = req.params;
     const post = req.body;
+
     isItemExist(id);
     try {
         // update post
         const updatedPost = await Post.findByIdAndUpdate(id, post, {
             new: true,
         }); // new option "true" is to get response data only after update
-        return res.send(200).json(updatedPost);
+        console.log(updatedPost);
+        return res.status(200).json(updatedPost);
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
