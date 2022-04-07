@@ -1,9 +1,10 @@
 import React from "react";
 
-function Input({ type = "text", value = "", onChange = null }) {
+function Input({ name, type = "text", value, onChange }) {
     return (
         <>
             <input
+                name={name}
                 type={type}
                 value={value}
                 onChange={onChange}
