@@ -29,7 +29,15 @@ Content-Type: application/json
 
 {
     "name": "johndoe",
-    "email": "john1@doe.com",
+    "email": "john2@doe.com",
     "password": "00000000",
     "confirmPassword": "00000000"
+}
+###
+POST http://localhost:8000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "john2@doe.com",
+    "password": "00000000"
 }

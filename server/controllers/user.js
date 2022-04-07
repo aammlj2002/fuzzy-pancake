@@ -2,14 +2,38 @@ import User from "../Models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const signin = (req, res) => {
-    console.log("signin");
+const signin = async (req, res) => {
+    // get inputed data
+    const { email, password } = req.body;
+
+    try {
+        // find user with email
+        const user = await User.findOne({ email });
+
+        // if user does not exist return error
+        if (!user)
+            return res.status(404).json({ message: "User doesn't exitts" });
+
+        // check inputed password and password is match
+        const matchPassword = await bcrypt.compare(password, user.password);
+        if (!matchPassword)
+            return res.status(400).json({ message: "invalid credentials" });
+
+        // generate jwt token
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXPIRE,
+        });
+        console.log(token);
+        return res.status(200).json({ result: user, token });
+    } catch (error) {
+        return res.status(500).json({ message: "some thing went wrong" });
+    }
 };
 const signup = async (req, res) => {
     // get inputed data
     const { name, email, password, confirmPassword } = req.body;
     try {
-        // find user with inputed email and if eixt return error
+        // find user with inputed email and if eixst return error
         const user = await User.findOne({ email });
         if (user)
             return res.status(400).json({ message: "email already used" });
@@ -29,10 +53,9 @@ const signup = async (req, res) => {
         });
 
         // generate jwt token
-        const token = jwt.sign(
-            { id: result._id },
-            "e36700c55ba18776957f52cac32b03f2d2befa5214c9b201e0c99a1092e49e26cd4ad02d557b72a3ccc192fe7dba3e143bc4717dae60c27e328fb40ac70307e5"
-        );
+        const token = jwt.sign({ id: result._id }, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXPIRE,
+        });
         console.log(token);
 
         return res.status(201).json({ result, token });
