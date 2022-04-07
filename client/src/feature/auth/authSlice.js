@@ -14,12 +14,25 @@ export const signUp = createAsyncThunk("auth/signUp", async (formData) => {
     }
 });
 
+// sign in
+export const signIn = createAsyncThunk("auth/signIn", async (formData) => {
+    try {
+        const res = await axios.post(`${url}/signin`, formData);
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+    }
+});
+
 const authSlice = createSlice({
     name: "auth",
-    initialState: { user: {} },
+    initialState: {},
     reducers: {},
     extraReducers: {
         [signUp.fulfilled]: (state, action) => {
+            localStorage.setItem("profile", JSON.stringify(action.payload));
+        },
+        [signIn.fulfilled]: (state, action) => {
             localStorage.setItem("profile", JSON.stringify(action.payload));
         },
     },

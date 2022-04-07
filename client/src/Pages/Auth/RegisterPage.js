@@ -32,13 +32,21 @@ function RegisterPage() {
                     {/* username */}
                     <div className="mb-5">
                         <Label text="Name" />
-                        <Input name="name" onChange={handleChange} />
+                        <Input
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     {/* email */}
                     <div className="mb-5">
                         <Label text="Email" />
-                        <Input name="email" onChange={handleChange} />
+                        <Input
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     {/* passowrd */}
@@ -47,6 +55,7 @@ function RegisterPage() {
                         <Input
                             name="password"
                             type="password"
+                            value={formData.password}
                             onChange={handleChange}
                         />
                     </div>
@@ -57,6 +66,7 @@ function RegisterPage() {
                         <Input
                             name="confirmPassword"
                             type="password"
+                            value={formData.confirmPassword}
                             onChange={handleChange}
                         />
                     </div>

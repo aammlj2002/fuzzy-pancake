@@ -1,26 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import Label from "../../components/element/Label";
 import Input from "../../components/element/Input";
 import Button from "../../components/element/Button";
 import Anchor from "../../components/element/Anchor";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../feature/auth/authSlice";
 function LoginPage() {
+    const dispatch = useDispatch();
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(signIn(formData));
+    };
     return (
         <>
             <div className="self-center text-xl font-light text-gray-600">
                 Login Account
             </div>
             <div className="mt-4">
-                <form autoComplete="off">
+                <form onSubmit={handleSubmit}>
                     {/* email */}
                     <div className="mb-5">
                         <Label text="Email" />
-                        <Input />
+                        <Input
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     {/* passowrd */}
                     <div className="mb-5">
                         <Label text="Password" />
-                        <Input />
+                        <Input
+                            name="password"
+                            type="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
                         <Anchor
                             text="Forgot password?"
                             to="/forgotpassword"
