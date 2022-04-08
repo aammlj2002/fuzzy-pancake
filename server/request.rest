@@ -1,12 +1,13 @@
 GET http://localhost:8000/posts/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNGVhYTk0NDg0OWYxODQwODg1OTI4ZSIsImlhdCI6MTY0OTMyNTAxNywiZXhwIjoxNjQ5MzI4NjE3fQ.lwqdxCtKp2epQdKdrjjnPC2vOX8HuairlUl1UFSB9mg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNGVhYTk0NDg0OWYxODQwODg1OTI4ZSIsImlhdCI6MTY0OTQwMzkwNywiZXhwIjoxNjQ5NDA3NTA3fQ.x6cPReCIp6ZUm4hsuRaUKs1QnRVZTpkP4qByEzXW2iU
 ###
 POST http://localhost:8000/posts/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNGVhYTk0NDg0OWYxODQwODg1OTI4ZSIsImlhdCI6MTY0OTQwMzkwNywiZXhwIjoxNjQ5NDA3NTA3fQ.x6cPReCIp6ZUm4hsuRaUKs1QnRVZTpkP4qByEzXW2iU
 Content-Type: application/json
 
 {
-    "title": "title1",
-    "description": "description1"
+    "title": "title4",
+    "description": "description4"
 }
 
 
