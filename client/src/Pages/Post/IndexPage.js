@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import PostCard from "../../components/PostCard";
+import PostCreateForm from "../../components/PostCreateForm";
 
 function Posts() {
     const posts = useSelector((state) => state.posts.posts);
@@ -13,14 +13,19 @@ function Posts() {
                         Lastest Posts
                     </p>
                 </div>
-                <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
-                    {posts.length ? (
-                        posts.map((post) => (
-                            <PostCard key={post._id} post={post} />
-                        ))
-                    ) : (
-                        <div>loading...</div>
-                    )}
+                <div className="flex gap-5 flex-justify">
+                    <div className="grid w-2/3 grid-cols-2 gap-12">
+                        {posts.length ? (
+                            posts.map((post) => (
+                                <PostCard key={post._id} post={post} />
+                            ))
+                        ) : (
+                            <div>loading...</div>
+                        )}
+                    </div>
+                    <div className="w-1/3 ">
+                        <PostCreateForm />
+                    </div>
                 </div>
             </div>
         </>
