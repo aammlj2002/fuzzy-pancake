@@ -12,7 +12,6 @@ const index = async (req, res) => {
     try {
         // get all post
         const post = await Post.find().populate("user");
-        console.log(post);
         res.status(200).json(post);
     } catch (error) {
         res.status(404).json({ message: error.message });

@@ -51,17 +51,14 @@ export const updatePost = createAsyncThunk(
         }
     }
 );
-export const deletePost = createAsyncThunk(
-    "posts/deletePost",
-    async ({ id }) => {
-        try {
-            const res = await API.delete(`/posts/delete/${id}`);
-            return res.data;
-        } catch (error) {
-            console.log(error.message);
-        }
+export const deletePost = createAsyncThunk("posts/deletePost", async (id) => {
+    try {
+        const res = await API.delete(`/posts/delete/${id}`);
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
     }
-);
+});
 
 export const likePost = createAsyncThunk("posts/likePost", async ({ id }) => {
     try {

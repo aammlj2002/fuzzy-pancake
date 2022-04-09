@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import LikeIcon from "./icon/LikeIcon";
+import { deletePost } from "../feature/post/postSlice";
 import { likePost } from "../feature/post/postSlice";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +12,9 @@ function PostCard({ post }) {
     const dispatch = useDispatch();
     const toggleMenu = () => {
         setShowMenu(!showMenu);
+    };
+    const handleDeletePost = (id) => {
+        dispatch(deletePost(id));
     };
     return (
         <>
@@ -32,22 +36,24 @@ function PostCard({ post }) {
                                 {showMenu ? (
                                     <div className="absolute right-0 w-56 mx-3 overflow-hidden origin-top-right bg-white rounded-md shadow-lg ring-black ring-opacity-5">
                                         <div className="">
-                                            <Link
+                                            <div
                                                 to="#"
                                                 className="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900 "
                                             >
                                                 <span className="flex flex-col">
                                                     <span>Edit</span>
                                                 </span>
-                                            </Link>
-                                            <Link
-                                                to="#"
+                                            </div>
+                                            <div
+                                                onClick={() =>
+                                                    handleDeletePost(post._id)
+                                                }
                                                 className="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900 "
                                             >
                                                 <span className="flex flex-col">
                                                     <span>Delete</span>
                                                 </span>
-                                            </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 ) : (
