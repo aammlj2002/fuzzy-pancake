@@ -1,21 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import LikeIcon from "./icon/LikeIcon";
 import { likePost } from "../feature/post/postSlice";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 
 function PostCard({ post }) {
+    const [showMenu, setShowMenu] = useState(false);
     const dispatch = useDispatch();
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);
+    };
     return (
         <>
+            {/* flex items-center justify-center w-12 h-12 p-3 m-2 transition-all bg-transparent rounded-full hover:bg-gray-100 hover:bg-opacity-40  */}
             <div className="m-auto overflow-hidden rounded-lg shadow-sm cursor-pointer h-90 w-60 md:w-80">
                 <Link to="/" className="block w-full h-full">
-                    <img
-                        alt="blog photo"
-                        // src="https://www.tailwind-kit.com/images/blog/1.jpg"
-                        src={post.image}
-                        className="object-cover w-full max-h-40"
-                    />
+                    <div className="relative">
+                        <div
+                            onClick={toggleMenu}
+                            className="absolute top-0 right-0"
+                        >
+                            <div class="relative inline-block text-left">
+                                <div className="flex items-center justify-center w-12 h-12 p-3 m-2 transition-all bg-transparent rounded-full hover:bg-gray-100 hover:bg-opacity-40">
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisVertical}
+                                        className="text-2xl text-white"
+                                    />
+                                </div>
+                                {showMenu ? (
+                                    <div className="absolute right-0 w-56 mx-3 overflow-hidden origin-top-right bg-white rounded-md shadow-lg ring-black ring-opacity-5">
+                                        <div className="">
+                                            <Link
+                                                to="#"
+                                                className="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900 "
+                                            >
+                                                <span className="flex flex-col">
+                                                    <span>Edit</span>
+                                                </span>
+                                            </Link>
+                                            <Link
+                                                to="#"
+                                                className="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900 "
+                                            >
+                                                <span className="flex flex-col">
+                                                    <span>Delete</span>
+                                                </span>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
+                        </div>
+                        <img
+                            alt="blog photo"
+                            src={post.image}
+                            className="object-cover w-full max-h-40"
+                        />
+                    </div>
                     <div className="w-full p-4 bg-white ">
                         <p className="mb-2 text-xl font-medium text-gray-800 ">
                             {post.title}
