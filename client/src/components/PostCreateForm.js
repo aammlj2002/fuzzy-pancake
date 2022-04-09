@@ -2,14 +2,22 @@ import React, { useState } from "react";
 import Label from "../components/element/Label";
 import Input from "../components/element/Input";
 import Button from "../components/element/Button";
+import { useDispatch } from "react-redux";
+import { createPost } from "../feature/post/postSlice";
 
 function PostCreateForm() {
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         title: "",
         description: "",
     });
-    const handleSubmit = () => {};
-    const handleChange = () => {};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(createPost(formData));
+    };
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
     return (
         <>
             <div className="p-5 bg-white rounded-lg">
@@ -20,10 +28,10 @@ function PostCreateForm() {
                     <form onSubmit={handleSubmit}>
                         {/* title */}
                         <div className="mb-5">
-                            <Label text="Email" />
+                            <Label text="Title" />
                             <Input
-                                name="email"
-                                value={formData.email}
+                                name="title"
+                                value={formData.title}
                                 onChange={handleChange}
                             />
                         </div>
@@ -33,7 +41,7 @@ function PostCreateForm() {
                             <Input
                                 name="description"
                                 type="description"
-                                value={formData.password}
+                                value={formData.description}
                                 onChange={handleChange}
                             />
                         </div>

@@ -20,19 +20,12 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 });
 export const createPost = createAsyncThunk(
     "posts/createPost",
-    async ({ title, description }) => {
-        const res = await API.post(
-            `/posts/create`,
-            {
-                title,
-                description,
+    async (newPost) => {
+        const res = await API.post(`/posts/create`, newPost, {
+            headers: {
+                "Content-Type": "application/json",
             },
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        );
+        });
         return res.data;
     }
 );
