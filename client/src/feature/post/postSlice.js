@@ -31,20 +31,18 @@ export const createPost = createAsyncThunk(
 );
 export const updatePost = createAsyncThunk(
     "posts/updatePost",
-    async ({ id, title, description }) => {
+    async (editPost) => {
         try {
             const res = await API.patch(
-                `/posts/update/${id}`,
-                {
-                    title,
-                    description,
-                },
+                `/posts/update/${editPost._id}`,
+                editPost,
                 {
                     headers: {
                         "Content-Type": "application/json",
                     },
                 }
             );
+
             return res.data;
         } catch (error) {
             console.log(error.message);
@@ -73,10 +71,7 @@ const postSlice = createSlice({
     name: "Posts",
     initialState: {
         posts: {},
-        editPost: {
-            title: "",
-            description: "",
-        },
+        editPost: {},
     },
     reducers: {
         setEditPost: (state, action) => {
