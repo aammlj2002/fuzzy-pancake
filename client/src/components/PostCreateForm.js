@@ -10,7 +10,9 @@ function PostCreateForm() {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
+        user: JSON.parse(localStorage.getItem("profile")).result._id,
     });
+
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createPost(formData));

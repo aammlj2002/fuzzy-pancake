@@ -34,8 +34,12 @@ function PostCard({ post }) {
                                 />
                             </a>
                             <div className="flex flex-col justify-between ml-4 text-sm">
-                                <p className="text-gray-800 ">Jean Jacques</p>
-                                <p className="text-gray-400 ">20 mars 2029</p>
+                                <p className="text-gray-800 ">
+                                    {post.user.name}
+                                </p>
+                                <p className="text-gray-400 ">
+                                    {post.createdAt}
+                                </p>
                             </div>
                         </div>
                         <div className="flex flex-row items-center justify-between mt-4">
