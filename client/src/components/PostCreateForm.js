@@ -3,6 +3,7 @@ import Label from "../components/element/Label";
 import Input from "../components/element/Input";
 import Button from "../components/element/Button";
 import { useDispatch } from "react-redux";
+import FileBase from "react-file-base64";
 import { createPost } from "../feature/post/postSlice";
 
 function PostCreateForm() {
@@ -10,6 +11,7 @@ function PostCreateForm() {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
+        image: null,
         user: JSON.parse(localStorage.getItem("profile")).result._id,
     });
 
@@ -22,6 +24,7 @@ function PostCreateForm() {
     };
     return (
         <>
+            {/* {image} */}
             <div className="p-5 bg-white rounded-lg">
                 <div className="self-center text-xl font-light text-gray-600">
                     Create Post
@@ -42,9 +45,19 @@ function PostCreateForm() {
                             <Label text="Description" />
                             <Input
                                 name="description"
-                                type="description"
                                 value={formData.description}
                                 onChange={handleChange}
+                            />
+                        </div>
+                        {/* file */}
+                        <div className="mb-5">
+                            <Label text="Image" />
+                            <FileBase
+                                type="file"
+                                multiple={false}
+                                onDone={({ base64 }) =>
+                                    setFormData({ ...formData, image: base64 })
+                                }
                             />
                         </div>
                         <div className="flex w-full mt-6">

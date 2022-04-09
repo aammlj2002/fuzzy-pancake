@@ -8,6 +8,7 @@ const postSchema = mongoose.Schema(
             ref: "User",
         },
         tags: [String],
+        image: String,
         seletedFile: String,
         likeCount: {
             type: Number,

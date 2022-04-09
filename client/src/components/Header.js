@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function Header() {
     const profile = JSON.parse(localStorage.getItem("profile"));
     return (
@@ -10,27 +10,27 @@ function Header() {
                         <div className="flex items-center justify-between h-16">
                             <div className="flex items-center justify-between w-full">
                                 <div className="flex flex-row items-center justify-start ">
-                                    <a
+                                    <Link
                                         className="text-2xl text-black "
-                                        href="/"
+                                        to="/"
                                     >
                                         MERN
-                                    </a>
+                                    </Link>
                                     {/* navigation */}
                                     <div className="block">
                                         <div className="flex items-baseline ml-10 space-x-4">
-                                            <a
+                                            <Link
                                                 className="px-3 py-2 text-sm font-medium text-gray-600 transition-all rounded-md hover:text-gray-800"
-                                                href="/"
+                                                to="/"
                                             >
                                                 Home
-                                            </a>
-                                            <a
+                                            </Link>
+                                            <Link
                                                 className="px-3 py-2 text-sm font-medium text-gray-600 transition-all rounded-md hover:text-gray-800"
-                                                href="/"
+                                                to="/"
                                             >
                                                 About
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

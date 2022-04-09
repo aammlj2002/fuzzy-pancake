@@ -12,7 +12,8 @@ function PostCard({ post }) {
                 <Link to="/" className="block w-full h-full">
                     <img
                         alt="blog photo"
-                        src="https://www.tailwind-kit.com/images/blog/1.jpg"
+                        // src="https://www.tailwind-kit.com/images/blog/1.jpg"
+                        src={post.image}
                         className="object-cover w-full max-h-40"
                     />
                     <div className="w-full p-4 bg-white ">
