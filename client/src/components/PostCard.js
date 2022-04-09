@@ -24,7 +24,9 @@ function PostCard({ post }) {
                             {post.description}
                         </p>
                         <p className="font-light text-blue-400 text-md">
-                            #post #programming #react
+                            {post.tags.map((tag) => (
+                                <span>#{tag} </span>
+                            ))}
                         </p>
                         <div className="flex items-center mt-4">
                             <a href="#" className="relative block">

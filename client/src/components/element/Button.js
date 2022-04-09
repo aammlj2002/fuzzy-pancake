@@ -1,6 +1,6 @@
 import React from "react";
 
-function Button({ type = "button", children }) {
+function Button({ type = "button", children, className }) {
     return (
         <>
             <button

@@ -8,10 +8,12 @@ import { createPost } from "../feature/post/postSlice";
 
 function PostCreateForm() {
     const dispatch = useDispatch();
+    const [tag, setTag] = useState("");
     const [formData, setFormData] = useState({
         title: "",
         description: "",
         image: null,
+        tags: [],
         user: JSON.parse(localStorage.getItem("profile")).result._id,
     });
 
@@ -21,6 +23,10 @@ function PostCreateForm() {
     };
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    const addTag = () => {
+        setFormData({ ...formData, tags: [...formData.tags, tag] });
+        setTag("");
     };
     return (
         <>
@@ -49,6 +55,30 @@ function PostCreateForm() {
                                 onChange={handleChange}
                             />
                         </div>
+                        {/* tags */}
+                        <div className="mb-5">
+                            <Label text="Tags" />
+                            <div className="flex flex-row gap-5 mb-3">
+                                <Input
+                                    name="tag"
+                                    value={tag}
+                                    onChange={(e) => setTag(e.target.value)}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={addTag}
+                                    className="px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-blue-500 rounded-lg shadow-md hover:bg-blue-600"
+                                >
+                                    +
+                                </button>
+                            </div>
+                            {formData.tags.map((tag) => (
+                                <span className="text-blue-400 mt-9">
+                                    #{tag}{" "}
+                                </span>
+                            ))}
+                        </div>
+
                         {/* file */}
                         <div className="mb-5">
                             <Label text="Image" />
