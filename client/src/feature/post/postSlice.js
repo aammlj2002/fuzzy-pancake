@@ -58,9 +58,11 @@ export const deletePost = createAsyncThunk("posts/deletePost", async (id) => {
     }
 });
 
-export const likePost = createAsyncThunk("posts/likePost", async ({ id }) => {
+export const likePost = createAsyncThunk("posts/likePost", async (id) => {
     try {
-        const res = await API.patch(`/posts/like/${id}`);
+        const res = await API.patch(`/posts/like/${id}`, {
+            user: JSON.parse(localStorage.getItem("profile")).result._id,
+        });
         return res.data;
     } catch (error) {
         console.log(error.message);

@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
     },
     posts: {
         type: [mongoose.objectId],
-        ref: "post",
+        ref: "Post",
     },
 });
 const User = mongoose.model("User", userSchema);

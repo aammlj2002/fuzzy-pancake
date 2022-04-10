@@ -10,9 +10,10 @@ const postSchema = mongoose.Schema(
         tags: [String],
         image: String,
         seletedFile: String,
-        likeCount: {
-            type: Number,
-            default: 0,
+        likes: {
+            type: [mongoose.ObjectId],
+            ref: "User",
+            default: [],
         },
     },
     { timestamps: true }

@@ -118,7 +118,7 @@ function PostCard({ post }) {
                                 <div
                                     className="inline-block"
                                     onClick={() => {
-                                        dispatch(likePost({ id: post._id }));
+                                        dispatch(likePost(post._id));
                                     }}
                                 >
                                     <FontAwesomeIcon
@@ -127,7 +127,7 @@ function PostCard({ post }) {
                                     />
                                 </div>
                                 <span className="ml-2 text-sm">
-                                    {post.likeCount} Likes
+                                    {/* {post.likes.length} Likes */}
                                 </span>
                             </div>
                         </div>
