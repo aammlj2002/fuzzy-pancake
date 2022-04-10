@@ -22,6 +22,9 @@ const create = async (req, res) => {
     try {
         // create post
         const post = await Post.create(data);
+
+        // populate author
+        await post.populate("user");
         res.status(201).json(post);
     } catch (error) {
         res.status(409).json({ message: error.message });
@@ -37,7 +40,9 @@ const update = async (req, res) => {
         const updatedPost = await Post.findByIdAndUpdate(id, post, {
             new: true,
         }); // new option "true" is to get response data only after update
-        console.log(updatedPost);
+
+        // pouplate author
+        await updatedPost.populate("user");
         return res.status(200).json(updatedPost);
     } catch (error) {
         res.status(409).json({ message: error.message });
@@ -69,6 +74,9 @@ const addLike = async (req, res) => {
             },
             { new: true } // new option "true" is to get response data only after update
         );
+
+        //pupulate author
+        await likedPost.populate("user");
         return res.status(200).json(likedPost);
     } catch (error) {
         res.status(409).json({ message: error.message });

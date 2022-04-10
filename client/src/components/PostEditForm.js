@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Label from "../components/element/Label";
-import Input from "../components/element/Input";
-import Button from "../components/element/Button";
+import Label from "./element/Label";
+import Input from "./element/Input";
+import Button from "./element/Button";
 import { useDispatch } from "react-redux";
 import FileBase from "react-file-base64";
 import { updatePost } from "../feature/post/postSlice";
