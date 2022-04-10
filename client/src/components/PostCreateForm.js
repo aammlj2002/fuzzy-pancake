@@ -28,7 +28,10 @@ function PostCreateForm() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
     const addTag = () => {
-        setFormData({ ...formData, tags: [...formData.tags, tag] });
+        // check is the input tag already exist in tags array
+        if (formData.tags.indexOf(tag) == -1) {
+            setFormData({ ...formData, tags: [...formData.tags, tag] });
+        }
         setTag("");
     };
     const removeTag = (seletedIndex) => {

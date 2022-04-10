@@ -42,35 +42,38 @@ function PostCard({ post }) {
                                             className="block text-2xl text-white "
                                         />
                                     </div>
-                                </OutSideClickHandler>
-                                {showMenu ? (
-                                    <div className="absolute right-0 w-56 mx-3 overflow-hidden origin-top-right bg-white rounded-md shadow-lg ring-black ring-opacity-5">
-                                        <div className="">
-                                            <div
-                                                onClick={() =>
-                                                    handleEditPost(post)
-                                                }
-                                                className="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900 "
-                                            >
-                                                <span className="flex flex-col">
-                                                    <span>Edit</span>
-                                                </span>
-                                            </div>
-                                            <div
-                                                onClick={() =>
-                                                    handleDeletePost(post._id)
-                                                }
-                                                className="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900 "
-                                            >
-                                                <span className="flex flex-col">
-                                                    <span>Delete</span>
-                                                </span>
+
+                                    {showMenu ? (
+                                        <div className="absolute right-0 w-56 mx-3 overflow-hidden origin-top-right bg-white rounded-md shadow-lg ring-black ring-opacity-5">
+                                            <div className="">
+                                                <div
+                                                    onClick={() =>
+                                                        handleEditPost(post)
+                                                    }
+                                                    className="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900 "
+                                                >
+                                                    <span className="flex flex-col">
+                                                        <span>Edit</span>
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    onClick={() =>
+                                                        handleDeletePost(
+                                                            post._id
+                                                        )
+                                                    }
+                                                    className="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900 "
+                                                >
+                                                    <span className="flex flex-col">
+                                                        <span>Delete</span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ) : (
-                                    <></>
-                                )}
+                                    ) : (
+                                        <></>
+                                    )}
+                                </OutSideClickHandler>
                             </div>
                         </div>
                         <img
@@ -88,7 +91,9 @@ function PostCard({ post }) {
                         </p>
                         <p className="font-light text-blue-400 text-md">
                             {post.tags.map((tag) => (
-                                <span key={tag}>#{tag} </span>
+                                <span className="font-bold" key={tag}>
+                                    #{tag}{" "}
+                                </span>
                             ))}
                         </p>
                         <div className="flex items-center mt-4">
