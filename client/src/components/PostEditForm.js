@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import FileBase from "react-file-base64";
 import { updatePost } from "../feature/post/postSlice";
 import Tag from "../components/Tag";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function PostCreateForm({ editPost }) {
     const dispatch = useDispatch();
@@ -75,13 +77,13 @@ function PostCreateForm({ editPost }) {
                                     value={tag}
                                     onChange={(e) => setTag(e.target.value)}
                                 />
-                                <button
+                                <Button
                                     type="button"
                                     onClick={addTag}
-                                    className="px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-blue-500 rounded-lg shadow-md hover:bg-blue-600"
+                                    className="w-auto "
                                 >
-                                    +
-                                </button>
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </Button>
                             </div>
                             {formData.tags.map((tag, index) => (
                                 <Tag

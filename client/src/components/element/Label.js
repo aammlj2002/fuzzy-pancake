@@ -1,9 +1,10 @@
 import React from "react";
 
-function Label({ text }) {
+function Label({ text, className }) {
+    const originalClasses = "mb-1 text-sm text-gray-900";
     return (
         <>
-            <label className="mb-1 text-sm text-gray-900">{text}</label>
+            <label className={`${originalClasses} ${className}`}>{text}</label>
         </>
     );
 }
