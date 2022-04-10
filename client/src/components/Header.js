@@ -35,7 +35,7 @@ function Header() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex">
+                            <div className="flex items-center ">
                                 {/* search box */}
                                 <div className="relative flex items-center w-full h-full lg:w-64 group">
                                     <svg

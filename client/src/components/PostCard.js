@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import LikeIcon from "./icon/LikeIcon";
 import { deletePost, setEditPost } from "../feature/post/postSlice";
 import { likePost } from "../feature/post/postSlice";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import {
+    faEllipsisVertical,
+    faThumbsUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 function PostCard({ post }) {
     const [showMenu, setShowMenu] = useState(false);
@@ -108,9 +110,9 @@ function PostCard({ post }) {
                                         dispatch(likePost({ id: post._id }));
                                     }}
                                 >
-                                    <LikeIcon
-                                        width="23"
-                                        style={"fill-gray-400"}
+                                    <FontAwesomeIcon
+                                        icon={faThumbsUp}
+                                        className="text-xl"
                                     />
                                 </div>
                                 <span className="ml-2 text-sm">
