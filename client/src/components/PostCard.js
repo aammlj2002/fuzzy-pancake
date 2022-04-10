@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { deletePost, setEditPost } from "../feature/post/postSlice";
 import { likePost } from "../feature/post/postSlice";
 import { Link } from "react-router-dom";
+import OutSideClickHandler from "react-outside-click-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faEllipsisVertical,
@@ -21,22 +22,27 @@ function PostCard({ post }) {
     const handleDeletePost = (id) => {
         dispatch(deletePost(id));
     };
+
     return (
         <>
-            <div className="m-auto overflow-hidden rounded-lg shadow-sm cursor-pointer h-90 w-60 md:w-80">
+            <div className="w-full m-auto overflow-hidden rounded-lg shadow-sm cursor-pointer h-90">
                 <div className="block w-full h-full">
                     <div className="relative">
-                        <div
-                            onClick={toggleMenu}
-                            className="absolute top-0 right-0"
-                        >
+                        <div className="absolute top-0 right-0">
                             <div className="relative inline-block text-left">
-                                <div className="flex items-center justify-center w-12 h-12 p-3 m-2 transition-all bg-transparent rounded-full hover:bg-gray-100 hover:bg-opacity-40">
-                                    <FontAwesomeIcon
-                                        icon={faEllipsisVertical}
-                                        className="text-2xl text-white"
-                                    />
-                                </div>
+                                <OutSideClickHandler
+                                    onOutsideClick={() => setShowMenu(false)}
+                                >
+                                    <div
+                                        onClick={toggleMenu}
+                                        className="flex items-center justify-center w-12 h-12 p-3 m-2 transition-all bg-transparent rounded-full hover:bg-gray-100 hover:bg-opacity-40"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faEllipsisVertical}
+                                            className="block text-2xl text-white "
+                                        />
+                                    </div>
+                                </OutSideClickHandler>
                                 {showMenu ? (
                                     <div className="absolute right-0 w-56 mx-3 overflow-hidden origin-top-right bg-white rounded-md shadow-lg ring-black ring-opacity-5">
                                         <div className="">

@@ -16,7 +16,7 @@ function Posts() {
                         Lastest Posts
                     </p>
                 </div>
-                <div className="flex gap-5 flex-justify">
+                <div className="flex items-start gap-12 flex-justify">
                     <div className="grid w-2/3 grid-cols-2 gap-12">
                         {posts.length ? (
                             posts.map((post) => (
