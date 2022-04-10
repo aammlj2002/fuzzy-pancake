@@ -7,7 +7,7 @@ import FileBase from "react-file-base64";
 import { createPost } from "../feature/post/postSlice";
 import Tag from "../components/Tag";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faP, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function PostCreateForm() {
     const dispatch = useDispatch();
@@ -97,8 +97,8 @@ function PostCreateForm() {
                         {/* file */}
                         <div className="mb-5">
                             <Label text="Image" />
+
                             <FileBase
-                                type="file"
                                 multiple={false}
                                 onDone={({ base64 }) =>
                                     setFormData({ ...formData, image: base64 })

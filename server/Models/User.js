@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema({
         type: String,
         require: true,
     },
+    posts: {
+        type: [mongoose.objectId],
+        ref: "post",
+    },
 });
 const User = mongoose.model("User", userSchema);
 export default User;

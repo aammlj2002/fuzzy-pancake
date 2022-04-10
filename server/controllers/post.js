@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Post from "../Models/Post.js";
+import User from "../Models/User.js";
 
 // check that is the inputed item exist in database
 const isItemExist = (id) => {
@@ -22,6 +23,15 @@ const create = async (req, res) => {
     try {
         // create post
         const post = await Post.create(data);
+
+        // push posts in user model
+        await User.findByIdAndUpdate(
+            data.user,
+            {
+                $push: { posts: post._id },
+            },
+            { new: true }
+        );
 
         // populate author
         await post.populate("user");
@@ -52,6 +62,18 @@ const destroy = async (req, res) => {
     const { id } = req.params;
     isItemExist(id);
     try {
+        // find selected post
+        const post = await Post.findById(id);
+
+        // remove seleced post id from user table
+        await User.findByIdAndUpdate(
+            post.user,
+            {
+                $pull: { posts: post._id },
+            },
+            { new: true }
+        );
+
         // remove selected post
         await Post.findByIdAndRemove(id);
         res.status(200).json({ id });
