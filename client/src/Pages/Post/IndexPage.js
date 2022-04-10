@@ -11,7 +11,7 @@ function Posts() {
     return (
         <>
             <div className="w-full p-12 bg-gray-100">
-                <div className="flex items-end justify-between px-6 header">
+                <div className="flex items-end justify-between px-6 mb-6 header">
                     <p className="text-4xl font-bold text-gray-800 ">
                         Lastest Posts
                     </p>

@@ -5,10 +5,11 @@ import Button from "../components/element/Button";
 import { useDispatch } from "react-redux";
 import FileBase from "react-file-base64";
 import { createPost } from "../feature/post/postSlice";
+import Tag from "../components/Tag";
 
 function PostCreateForm() {
     const dispatch = useDispatch();
-    const [tag, setTag] = useState("");
+    const [tag, setTag] = useState([]);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -27,6 +28,14 @@ function PostCreateForm() {
     const addTag = () => {
         setFormData({ ...formData, tags: [...formData.tags, tag] });
         setTag("");
+    };
+    const removeTag = (seletedIndex) => {
+        setFormData({
+            ...formData,
+
+            // filter out the index same with selected Index
+            tags: formData.tags.filter((tag, index) => index !== seletedIndex),
+        });
     };
     return (
         <>
@@ -72,10 +81,14 @@ function PostCreateForm() {
                                     +
                                 </button>
                             </div>
-                            {formData.tags.map((tag) => (
-                                <span className="text-blue-400 mt-9">
-                                    #{tag}{" "}
-                                </span>
+
+                            {formData.tags.map((tag, index) => (
+                                <Tag
+                                    key={index}
+                                    tag={tag}
+                                    index={index}
+                                    removeTag={removeTag}
+                                />
                             ))}
                         </div>
 

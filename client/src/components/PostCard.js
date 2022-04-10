@@ -22,13 +22,13 @@ function PostCard({ post }) {
     return (
         <>
             <div className="m-auto overflow-hidden rounded-lg shadow-sm cursor-pointer h-90 w-60 md:w-80">
-                <Link to="/" className="block w-full h-full">
+                <div className="block w-full h-full">
                     <div className="relative">
                         <div
                             onClick={toggleMenu}
                             className="absolute top-0 right-0"
                         >
-                            <div class="relative inline-block text-left">
+                            <div className="relative inline-block text-left">
                                 <div className="flex items-center justify-center w-12 h-12 p-3 m-2 transition-all bg-transparent rounded-full hover:bg-gray-100 hover:bg-opacity-40">
                                     <FontAwesomeIcon
                                         icon={faEllipsisVertical}
@@ -84,13 +84,13 @@ function PostCard({ post }) {
                             ))}
                         </p>
                         <div className="flex items-center mt-4">
-                            <a href="#" className="relative block">
+                            <Link to="#" className="relative block">
                                 <img
                                     alt="profile"
                                     src={post.image}
                                     className="object-cover w-10 h-10 mx-auto rounded-full "
                                 />
-                            </a>
+                            </Link>
                             <div className="flex flex-col justify-between ml-4 text-sm">
                                 <p className="text-gray-800 ">
                                     {post.user.name}
@@ -119,7 +119,7 @@ function PostCard({ post }) {
                             </div>
                         </div>
                     </div>
-                </Link>
+                </div>
             </div>
         </>
     );
