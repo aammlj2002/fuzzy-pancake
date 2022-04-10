@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
 import Post from "../Models/Post.js";
 import User from "../Models/User.js";
-
 // check that is the inputed item exist in database
-const isItemExist = (id) => {
+const isExist = (id) => {
     if (!mongoose.isValidObjectId(id)) {
         return res.status(404).send("post with this id not found");
     }
 };
-
 const index = async (req, res) => {
     try {
         // get all post
@@ -24,14 +22,7 @@ const create = async (req, res) => {
         // create post
         const post = await Post.create(data);
 
-        // push posts in user model
-        await User.findByIdAndUpdate(
-            data.user,
-            {
-                $push: { posts: post._id },
-            },
-            { new: true }
-        );
+        // *** posts array in user collection will save in model
 
         // populate author
         await post.populate("user");
@@ -44,7 +35,7 @@ const update = async (req, res) => {
     const { id } = req.params;
     const post = req.body;
 
-    isItemExist(id);
+    isExist(id);
     try {
         // update post
         const updatedPost = await Post.findByIdAndUpdate(id, post, {
@@ -60,12 +51,12 @@ const update = async (req, res) => {
 };
 const destroy = async (req, res) => {
     const { id } = req.params;
-    isItemExist(id);
+    isExist(id);
     try {
         // find selected post
         const post = await Post.findById(id);
 
-        // remove seleced post id from user table
+        // remove seleced post id from user table ** i have to refactor to post model
         await User.findByIdAndUpdate(
             post.user,
             {
