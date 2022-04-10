@@ -83,15 +83,24 @@ const destroy = async (req, res) => {
 };
 const addLike = async (req, res) => {
     const { id } = req.params;
-    const user = req.body.user;
+    const user = mongoose.Types.ObjectId(req.body.user);
     isItemExist(id);
     try {
+        const post = await Post.findById(id);
+        let action = {
+            $push: { likes: user }, // add user id to like array
+        };
+        if (post.likes.indexOf(user) !== -1) {
+            // user exist in likes array
+            action = {
+                $pull: { likes: user }, // remove user id from like array
+            };
+        }
+
         // update like
         const likedPost = await Post.findByIdAndUpdate(
             id,
-            {
-                $push: { likes: mongoose.Types.ObjectId(user) }, // add user id to like array
-            },
+            action,
             { new: true } // new option "true" is to get response data only after update
         );
 

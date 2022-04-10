@@ -22,6 +22,13 @@ function PostCard({ post }) {
     const handleDeletePost = (id) => {
         dispatch(deletePost(id));
     };
+    const isLiked = () => {
+        return (
+            post.likes.indexOf(
+                JSON.parse(localStorage.getItem("profile")).result._id
+            ) !== -1
+        );
+    };
 
     return (
         <>
@@ -123,11 +130,18 @@ function PostCard({ post }) {
                                 >
                                     <FontAwesomeIcon
                                         icon={faThumbsUp}
-                                        className="text-xl"
+                                        className={`
+                                            text-xl 
+                                            ${
+                                                isLiked()
+                                                    ? "text-blue-500"
+                                                    : "text-gray-500"
+                                            }
+                                        `}
                                     />
                                 </div>
                                 <span className="ml-2 text-sm">
-                                    {/* {post.likes.length} Likes */}
+                                    {post.likes.length} Likes
                                 </span>
                             </div>
                         </div>
