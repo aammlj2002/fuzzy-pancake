@@ -7,15 +7,22 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        require: true,
+        lowercase: true,
+        unique: true,
+        required: true,
+
+        // email valdation
+        match: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     },
     password: {
         type: String,
-        require: true,
+        required: true,
+        maxLength: 30,
     },
     posts: {
         type: [mongoose.ObjectId],
         ref: "Post",
+        default: [],
     },
 });
 const User = mongoose.model("User", userSchema);

@@ -68,13 +68,13 @@ const signup = async (req, res) => {
 const refreshToken = (req, res) => {
     const refreshToken = req.body.refreshToken;
     if (refreshToken === null)
-        res.status(403).send({ message: "not authenicated" });
+        return res.status(403).send({ message: "not authenicated" });
     jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
         if (err) res.status(401).send({ message: err.message });
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRE,
         });
-        res.status(200).json({ token });
+        return res.status(200).json({ token });
     });
 };
 export { signin, signup, refreshToken };
