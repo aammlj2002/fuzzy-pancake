@@ -42,3 +42,10 @@ Content-Type: application/json
     "email": "john2@doe.com",
     "password": "00000000"
 }
+###
+POST http://localhost:8000/auth/refreshtoken
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY0OTY0NDcxMH0.5SSJGEib0XNFqAncGd2OuIx-EqWsGC6d82ma3teBqPU"
+}
