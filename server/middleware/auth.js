@@ -9,7 +9,7 @@ const auth = async (req, res, next) => {
             req.headers.authorization &&
             req.headers.authorization.startsWith("Bearer")
         ) {
-            // remove Beraer
+            // remove Bearer
             token = req.headers.authorization.split(" ")[1];
         }
 
@@ -26,15 +26,17 @@ const auth = async (req, res, next) => {
 
             // if user not found return 404
             if (!user) {
-                return res.status(404).json({ message: "user not found" });
+                return res.status(404).json({ message: "invalid token" });
             }
 
             // send user object to controller
             req.user = user;
             next();
         } catch (error) {
-            return res.status(401).json({ message: "not authorized" });
+            return res.status(401).json({ message: error.message });
         }
-    } catch (error) {}
+    } catch (error) {
+        return res.status(500).json({ message: "server error" });
+    }
 };
 export default auth;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import IndexPage from "./Pages/Post/IndexPage";
 import { fetchPosts } from "./feature/post/postSlice";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
