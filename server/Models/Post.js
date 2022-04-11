@@ -27,16 +27,7 @@ postSchema.method.isExist = function (id) {
     }
 };
 
-postSchema.post("save", async function () {
-    // push posts in user model
-    await User.findByIdAndUpdate(
-        this.user,
-        {
-            $push: { posts: this._id },
-        },
-        { new: true }
-    );
-});
+postSchema.post("save", async function () {});
 const Post = mongoose.model("Post", postSchema);
 
 export default Post;

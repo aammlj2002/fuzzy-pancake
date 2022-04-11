@@ -28,12 +28,9 @@ const auth = async (req, res, next) => {
             if (!user) {
                 return res.status(404).json({ message: "invalid token" });
             }
-
-            // send user object to controller
-            req.user = user;
             next();
         } catch (error) {
-            return res.status(401).json({ message: error.message });
+            return res.status(403).json({ message: error.message });
         }
     } catch (error) {
         return res.status(500).json({ message: "server error" });
