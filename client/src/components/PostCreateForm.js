@@ -17,7 +17,7 @@ function PostCreateForm() {
         description: "",
         image: null,
         tags: [],
-        user: JSON.parse(localStorage.getItem("profile")).result._id,
+        user: JSON.parse(localStorage.getItem("profile"))._id,
     });
 
     const handleSubmit = (e) => {

@@ -52,7 +52,7 @@ function Header() {
                                     />
                                 </div>
                                 <div className="flex items-center ml-5">
-                                    {profile ? profile.result.name : ""}
+                                    {profile ? profile.name : ""}
                                 </div>
                             </div>
                         </div>

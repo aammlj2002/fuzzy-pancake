@@ -6,10 +6,9 @@ const API = axios.create({
 });
 // add authorization token in request header with interceptors
 API.interceptors.request.use((req) => {
-    if (localStorage.getItem("profile")) {
-        req.headers.authorization = `Bearer ${
-            JSON.parse(localStorage.getItem("profile")).token
-        }`;
+    const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+    if (accessToken) {
+        req.headers.authorization = `Bearer ${accessToken}`;
     }
     return req;
 });
@@ -61,7 +60,7 @@ export const deletePost = createAsyncThunk("posts/deletePost", async (id) => {
 export const likePost = createAsyncThunk("posts/likePost", async (id) => {
     try {
         const res = await API.patch(`/posts/like/${id}`, {
-            user: JSON.parse(localStorage.getItem("profile")).result._id,
+            user: JSON.parse(localStorage.getItem("profile"))._id,
         });
         return res.data;
     } catch (error) {

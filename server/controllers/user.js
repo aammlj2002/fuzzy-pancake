@@ -19,15 +19,19 @@ const signin = async (req, res) => {
         if (!matchPassword)
             return res.status(400).json({ message: "invalid credentials" });
 
-        // generate jwt token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        // generate jwt access token
+        const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRE,
         });
+
+        // generate refresh token
         const refreshToken = jwt.sign(
             { id: user._id },
             process.env.JWT_REFRESH_SECRET
         );
-        return res.status(200).json({ result: user, token, refreshToken });
+        return res
+            .status(200)
+            .json({ result: user, accessToken, refreshToken });
     } catch (error) {
         return res.status(500).json({ message: "some thing went wrong" });
     }
@@ -56,11 +60,21 @@ const signup = async (req, res) => {
         });
 
         // generate jwt token
-        const token = jwt.sign({ id: result._id }, process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_EXPIRE,
-        });
+        const accessToken = jwt.sign(
+            { id: result._id },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: process.env.JWT_EXPIRE,
+            }
+        );
 
-        return res.status(201).json({ result, token });
+        // generate refresh token
+        const refreshToken = jwt.sign(
+            { id: user._id },
+            process.env.JWT_REFRESH_SECRET
+        );
+
+        return res.status(201).json({ result, accessToken, refreshToken });
     } catch (error) {
         return res.status(500).json({ message: "something went wrong" });
     }

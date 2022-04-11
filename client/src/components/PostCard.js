@@ -25,7 +25,7 @@ function PostCard({ post }) {
     const isLiked = () => {
         return (
             post.likes.indexOf(
-                JSON.parse(localStorage.getItem("profile")).result._id
+                JSON.parse(localStorage.getItem("profile"))._id
             ) !== -1
         );
     };

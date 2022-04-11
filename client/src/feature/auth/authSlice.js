@@ -30,10 +30,32 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers: {
         [signUp.fulfilled]: (state, action) => {
-            localStorage.setItem("profile", JSON.stringify(action.payload));
+            localStorage.setItem(
+                "profile",
+                JSON.stringify(action.payload.result)
+            );
+            localStorage.setItem(
+                "accessToken",
+                JSON.stringify(action.payload.accessToken)
+            );
+            localStorage.setItem(
+                "refreshToken",
+                JSON.stringify(action.payload.refreshToken)
+            );
         },
         [signIn.fulfilled]: (state, action) => {
-            localStorage.setItem("profile", JSON.stringify(action.payload));
+            localStorage.setItem(
+                "profile",
+                JSON.stringify(action.payload.result)
+            );
+            localStorage.setItem(
+                "accessToken",
+                JSON.stringify(action.payload.accessToken)
+            );
+            localStorage.setItem(
+                "refreshToken",
+                JSON.stringify(action.payload.refreshToken)
+            );
         },
     },
 });
