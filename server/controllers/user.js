@@ -27,7 +27,6 @@ const signin = async (req, res) => {
             { id: user._id },
             process.env.JWT_REFRESH_SECRET
         );
-        console.log(token);
         return res.status(200).json({ result: user, token, refreshToken });
     } catch (error) {
         return res.status(500).json({ message: "some thing went wrong" });
@@ -60,7 +59,6 @@ const signup = async (req, res) => {
         const token = jwt.sign({ id: result._id }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRE,
         });
-        console.log(token);
 
         return res.status(201).json({ result, token });
     } catch (error) {

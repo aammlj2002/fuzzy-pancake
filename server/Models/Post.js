@@ -1,16 +1,28 @@
 import mongoose from "mongoose";
-import User from "./User.js";
 const postSchema = mongoose.Schema(
     {
-        title: String,
-        description: String,
+        title: {
+            type: String,
+            required: true,
+            maxLength: 225,
+        },
+        description: {
+            type: String,
+            required: true,
+        },
         user: {
             type: mongoose.ObjectId,
             ref: "User",
+            required: true,
         },
-        tags: [String],
-        image: String,
-        seletedFile: String,
+        tags: {
+            type: [String],
+            default: [],
+        },
+        image: {
+            type: String,
+            default: null,
+        },
         likes: {
             type: [mongoose.ObjectId],
             ref: "User",
@@ -20,14 +32,6 @@ const postSchema = mongoose.Schema(
     { timestamps: true }
 );
 
-// check that is the inputed item exist in database
-postSchema.method.isExist = function (id) {
-    if (!mongoose.isValidObjectId(id)) {
-        return res.status(404).send("post with this id not found");
-    }
-};
-
-postSchema.post("save", async function () {});
 const Post = mongoose.model("Post", postSchema);
 
 export default Post;

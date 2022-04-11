@@ -3,12 +3,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwN
 
 ###
 POST http://localhost:8000/posts/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY0OTY1MzkwMiwiZXhwIjoxNjQ5NjU3NTAyfQ.Jm3N52PPGJPQmYj_fTR0SNcjKfg03znApzDRFfzsXrU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY0OTY2NTMzNSwiZXhwIjoxNjQ5NjY4OTM1fQ.kCGo0FzKcEnSwoF9z2dsSrrR8Qt-dhwehOXBxZv9oQw
 Content-Type: application/json
 
 {
-    "title": "title4",
-    "description": "description4"
+    "title": "title4"
 }
 
 

@@ -28,7 +28,7 @@ const create = async (req, res) => {
             try {
                 // push posts in user model
                 await User.findByIdAndUpdate(
-                    this.user,
+                    post.user,
                     {
                         $push: { posts: post._id },
                     },
@@ -39,7 +39,7 @@ const create = async (req, res) => {
                 await Post.findByIdAndRemove(post._id);
 
                 // *** need to fix this
-                return res.status(500).json({ message: "server error" });
+                return res.status(500).json({ message: error.message });
             }
             // populate author
             await post.populate("user");
