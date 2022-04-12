@@ -1,12 +1,24 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import decode from "jwt-decode";
 
 const API = axios.create({
     baseURL: "http://localhost:8000",
 });
 // add authorization token in request header with interceptors
-API.interceptors.request.use((req) => {
-    const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+API.interceptors.request.use(async (req) => {
+    const refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
+    let accessToken = JSON.parse(localStorage.getItem("accessToken"));
+    const decoded = decode(accessToken);
+    console.log(accessToken);
+    if (decoded.exp * 1000 < new Date().getTime()) {
+        const { data } = await axios.post(
+            `http://localhost:8000/auth/refreshtoken`,
+            { refreshToken }
+        );
+        localStorage.setItem("accessToken", JSON.stringify(data.token));
+    }
+    accessToken = JSON.parse(localStorage.getItem("accessToken"));
     if (accessToken) {
         req.headers.authorization = `Bearer ${accessToken}`;
     }
