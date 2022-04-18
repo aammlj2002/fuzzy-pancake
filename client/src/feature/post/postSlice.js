@@ -98,9 +98,9 @@ const postSlice = createSlice({
             return { ...state, posts: [...state.posts, action.payload] };
         },
         [updatePost.fulfilled]: (state, action) => {
+            // setEditPost({});
             return {
                 ...state,
-
                 //update the updated post
                 posts: state.posts.map((post) => {
                     return post._id === action.payload._id

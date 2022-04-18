@@ -33,6 +33,7 @@ function PostCreateForm() {
             title: "",
             description: "",
             tags: [],
+            image: null,
             user: JSON.parse(localStorage.getItem("profile"))._id,
         },
     });
