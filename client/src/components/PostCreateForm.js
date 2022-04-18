@@ -10,15 +10,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import FileBase64 from "react-file-base64";
+import PostFormValidation from "../validation/postForm";
+
 function PostCreateForm() {
     const dispatch = useDispatch();
     const [tag, setTag] = useState("");
-    const schema = Yup.object({
-        title: Yup.string().required("title is required").max(255),
-        description: Yup.string().required("description is reqired"),
-        image: Yup.string().required("image is required"),
-        tags: Yup.array().of(Yup.string()),
-    });
     const {
         register,
         getValues,
@@ -28,7 +24,7 @@ function PostCreateForm() {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(PostFormValidation),
         defaultValues: {
             title: "",
             description: "",

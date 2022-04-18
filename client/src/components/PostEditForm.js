@@ -8,19 +8,13 @@ import Error from "../components/element/Error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 import { useForm } from "react-hook-form";
+import PostFormValidation from "../validation/postForm";
 
 function PostCreateForm(props) {
     const editPost = useSelector((state) => state.posts.editPost);
     const dispatch = useDispatch();
     const [tag, setTag] = useState("");
-    const schema = Yup.object({
-        title: Yup.string().required("title is required").max(255),
-        description: Yup.string().required("description is reqired"),
-        image: Yup.string().required("image is required"),
-        tags: Yup.array().of(Yup.string()),
-    });
     const {
         register,
         getValues,
@@ -29,7 +23,7 @@ function PostCreateForm(props) {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(PostFormValidation),
         defaultValues: {
             _id: editPost._id,
             title: editPost.title,
