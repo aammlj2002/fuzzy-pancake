@@ -10,7 +10,6 @@ API.interceptors.request.use(async (req) => {
     const refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
     let accessToken = JSON.parse(localStorage.getItem("accessToken"));
     const decoded = decode(accessToken);
-    console.log(accessToken);
     if (decoded.exp * 1000 < new Date().getTime()) {
         const { data } = await axios.post(
             `http://localhost:8000/auth/refreshtoken`,

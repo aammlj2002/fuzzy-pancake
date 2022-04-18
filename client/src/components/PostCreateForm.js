@@ -6,41 +6,65 @@ import { useDispatch } from "react-redux";
 import FileBase from "react-file-base64";
 import { createPost } from "../feature/post/postSlice";
 import Tag from "../components/Tag";
+import Error from "../components/element/Error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
+import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import FileBase64 from "react-file-base64";
 function PostCreateForm() {
     const dispatch = useDispatch();
-    const [tag, setTag] = useState([]);
-    const [formData, setFormData] = useState({
-        title: "",
-        description: "",
-        image: null,
-        tags: [],
-        user: JSON.parse(localStorage.getItem("profile"))._id,
+    const [tag, setTag] = useState("");
+    const schema = Yup.object({
+        title: Yup.string().required("title is required").max(255),
+        description: Yup.string().required("description is reqired"),
+        image: Yup.string().required("image is required"),
+        tags: Yup.array().of(Yup.string()),
     });
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(createPost(formData));
-    };
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+    const {
+        register,
+        getValues,
+        setValue,
+        watch,
+        reset,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            title: "",
+            description: "",
+            tags: [],
+            user: JSON.parse(localStorage.getItem("profile"))._id,
+        },
+    });
     const addTag = () => {
-        // check is the input tag already exist in tags array
-        if (formData.tags.indexOf(tag) == -1) {
-            setFormData({ ...formData, tags: [...formData.tags, tag] });
+        // if inputed tag is not include in tags array and not empty string
+        if (getValues("tags").indexOf(tag.trim()) == -1 && tag.trim()) {
+            setValue("tags", [...getValues("tags"), tag.trim()]);
         }
+
+        // reset input
         setTag("");
     };
-    const removeTag = (seletedIndex) => {
-        setFormData({
-            ...formData,
+    const onSubmit = async (data) => {
+        // dispatch createPost event
+        const res = await dispatch(createPost(data));
 
+        // if submit success reset form
+        res && reset();
+    };
+    const removeTag = (seletedIndex) => {
+        const filteredTags = getValues("tags").filter(
+            (tag, index) => index !== seletedIndex
+        );
+        console.log(filteredTags);
+        setValue(
+            "tags",
             // filter out the index same with selected Index
-            tags: formData.tags.filter((tag, index) => index !== seletedIndex),
-        });
+            ["tags"]
+        );
     };
     return (
         <>
@@ -50,31 +74,35 @@ function PostCreateForm() {
                     Create Post
                 </div>
                 <div className="mt-4">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         {/* title */}
                         <div className="mb-5">
                             <Label text="Title" />
-                            <Input
-                                name="title"
-                                value={formData.title}
-                                onChange={handleChange}
+                            <input
+                                className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
+                                {...register("title")}
                             />
+                            {errors.title && (
+                                <Error>{errors.title.message}</Error>
+                            )}
                         </div>
                         {/* description */}
                         <div className="mb-5">
                             <Label text="Description" />
-                            <Input
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
+                            <input
+                                className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
+                                {...register("description")}
                             />
+                            {errors.description && (
+                                <Error>{errors.description.message}</Error>
+                            )}
                         </div>
                         {/* tags */}
                         <div className="mb-5">
                             <Label text="Tags" />
                             <div className="flex flex-row gap-5 mb-3">
-                                <Input
-                                    name="tag"
+                                <input
+                                    className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
                                     value={tag}
                                     onChange={(e) => setTag(e.target.value)}
                                 />
@@ -87,13 +115,18 @@ function PostCreateForm() {
                                 </Button>
                             </div>
 
-                            {formData.tags.map((tag, index) => (
-                                <Tag
+                            {getValues("tags").map((tag, index) => (
+                                <div
                                     key={index}
-                                    tag={tag}
-                                    index={index}
-                                    removeTag={removeTag}
-                                />
+                                    className="inline-block px-3 py-1 mb-3 mr-3 bg-gray-200 border rounded-full"
+                                >
+                                    <span>{tag}</span>
+                                    <FontAwesomeIcon
+                                        onClick={() => removeTag(index)}
+                                        className="ml-3 cursor-pointer"
+                                        icon={faXmark}
+                                    />
+                                </div>
                             ))}
                         </div>
 
@@ -101,12 +134,17 @@ function PostCreateForm() {
                         <div className="mb-5">
                             <Label text="Image" />
 
-                            <FileBase
+                            <FileBase64
                                 multiple={false}
-                                onDone={({ base64 }) =>
-                                    setFormData({ ...formData, image: base64 })
-                                }
+                                onDone={({ base64 }) => {
+                                    setValue("image", base64);
+                                }}
+                                {...register("image")}
                             />
+                            <img className="mt-5" src={getValues("image")} />
+                            {errors.image && (
+                                <Error>{errors.image.message}</Error>
+                            )}
                         </div>
                         <div className="flex w-full mt-6">
                             <Button type="submit">Add Post</Button>
