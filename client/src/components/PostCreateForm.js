@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import Label from "../components/element/Label";
-import Input from "../components/element/Input";
 import Button from "../components/element/Button";
 import { useDispatch } from "react-redux";
-import FileBase from "react-file-base64";
 import { createPost } from "../feature/post/postSlice";
-import Tag from "../components/Tag";
 import Error from "../components/element/Error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -56,15 +53,13 @@ function PostCreateForm() {
         res && reset();
     };
     const removeTag = (seletedIndex) => {
+        // filter out the index same with selected Index
         const filteredTags = getValues("tags").filter(
             (tag, index) => index !== seletedIndex
         );
         console.log(filteredTags);
-        setValue(
-            "tags",
-            // filter out the index same with selected Index
-            ["tags"]
-        );
+        watch(register());
+        setValue("tags", [...filteredTags]);
     };
     return (
         <>
