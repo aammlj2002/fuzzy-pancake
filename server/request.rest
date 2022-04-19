@@ -56,6 +56,5 @@ Content-Type: application/json
 {
     "name": "Aung Aung Myo Myat",
     "email": "aamm@gmail.com",
-    "username": "aammlj",
-    "avatar": "123"
+    "username": "robin123"
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Label from "../../components/element/Label";
 import Error from "../../components/element/Error";
 import Button from "../../components/element/Button";
@@ -6,11 +6,15 @@ import FileBase64 from "react-file-base64";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../feature/auth/authSlice";
 
 function EditProfilePage() {
     const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
+    useEffect(() => {
+        console.log(auth);
+    }, [auth]);
     const profileFormValidation = Yup.object({
         name: Yup.string().required("name is required"),
         email: Yup.string()
@@ -86,6 +90,9 @@ function EditProfilePage() {
                             {errors.email && (
                                 <Error>{errors.email.message}</Error>
                             )}
+                            {auth.errors.email && (
+                                <Error>{auth.errors.email}</Error>
+                            )}
                         </div>
                         <div className="mb-5">
                             <Label text="Username" />
@@ -95,6 +102,9 @@ function EditProfilePage() {
                             />
                             {errors.username && (
                                 <Error>{errors.username.message}</Error>
+                            )}
+                            {auth.errors.username && (
+                                <Error>{auth.errors.username}</Error>
                             )}
                         </div>
                         <div className="flex justify-end">

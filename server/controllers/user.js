@@ -100,8 +100,30 @@ const update = async (req, res) => {
     try {
         const id = mongoose.Types.ObjectId(req.params);
         const data = req.body;
-        const user = User.findById(data._id);
+
+        const user = await User.findById(id);
         if (!user) return res.status(400).json({ message: "user not found" });
+
+        const isEmailExist = await User.findOne({ email: data.email });
+
+        // if email is exsit and inputed email is equal to email from db
+        if (isEmailExist && data.email !== user.email)
+            return res.status(400).json({
+                errors: {
+                    email: "email already used",
+                },
+            });
+
+        const isUsernameExist = await User.findOne({ username: data.username });
+        console.log(isUsernameExist);
+        // if username is exsit and inputed username is equal to username from db
+        if (isUsernameExist && data.username !== user.username)
+            return res.status(400).json({
+                errors: {
+                    username: "username already used",
+                },
+            });
+
         const result = await User.findByIdAndUpdate(id, data, { new: true });
         res.status(200).json(result);
     } catch (error) {

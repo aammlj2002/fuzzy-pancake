@@ -28,23 +28,21 @@ export const signIn = createAsyncThunk("auth/signIn", async (formData) => {
 export const updateProfile = createAsyncThunk(
     "auth/updateProfile",
     async (formData) => {
-        console.log(formData);
         try {
             const res = await axios.patch(
                 `${url}/${formData._id}/update`,
                 formData
             );
-            console.log("from update profile", res.data);
             return res.data;
         } catch (error) {
-            console.log(error.message);
+            return error.response.data;
         }
     }
 );
 
 const authSlice = createSlice({
     name: "auth",
-    initialState: {},
+    initialState: { errors: {} },
     reducers: {},
     extraReducers: {
         [signUp.fulfilled]: (state, action) => {
@@ -76,8 +74,11 @@ const authSlice = createSlice({
             );
         },
         [updateProfile.fulfilled]: (state, action) => {
-            console.log(action.payload);
+            if (action.payload.errors)
+                return { ...state, errors: action.payload.errors };
+
             localStorage.setItem("profile", JSON.stringify(action.payload));
+            return { ...state, errors: {} };
         },
     },
 });
