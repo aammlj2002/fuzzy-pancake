@@ -6,7 +6,11 @@ import FileBase64 from "react-file-base64";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
+import { updateProfile } from "../../feature/auth/authSlice";
+
 function EditProfilePage() {
+    const dispatch = useDispatch();
     const profileFormValidation = Yup.object({
         name: Yup.string().required("name is required"),
         email: Yup.string()
@@ -36,7 +40,7 @@ function EditProfilePage() {
         },
     });
     const onSubmit = (data) => {
-        console.log(data);
+        dispatch(updateProfile(data));
     };
     return (
         <>
@@ -62,9 +66,6 @@ function EditProfilePage() {
                                     setValue("avatar", base64);
                                 }}
                             />
-                            {/* {errors.description && (
-                                <Error>{errors.description.message}</Error>
-                            )} */}
                         </div>
                         <div className="mb-5">
                             <Label text="Name" />

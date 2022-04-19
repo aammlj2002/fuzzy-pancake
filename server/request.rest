@@ -49,3 +49,13 @@ Content-Type: application/json
 {
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY0OTY0NDcxMH0.5SSJGEib0XNFqAncGd2OuIx-EqWsGC6d82ma3teBqPU"
 }
+###
+PATCH http://localhost:8000/auth/625138e27b48b001558de46e/update
+Content-Type: application/json
+
+{
+    "name": "Aung Aung Myo Myat",
+    "email": "aamm@gmail.com",
+    "username": "aammlj",
+    "avatar": "123"
+}

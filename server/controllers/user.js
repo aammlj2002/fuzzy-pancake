@@ -1,6 +1,7 @@
 import User from "../Models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 const signin = async (req, res) => {
     // get inputed data
@@ -53,12 +54,16 @@ const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
 
         // store user in database
-        const result = await User.create({
-            name,
-            email,
-            password: hashedPassword,
-        });
-
+        try {
+            const result = await User.create({
+                name,
+                email,
+                password: hashedPassword,
+            });
+            console.log(result);
+        } catch (error) {
+            console.log(error.message);
+        }
         // generate jwt token
         const accessToken = jwt.sign(
             { id: result._id },
@@ -91,4 +96,16 @@ const refreshToken = (req, res) => {
         return res.status(200).json({ token });
     });
 };
-export { signin, signup, refreshToken };
+const update = async (req, res) => {
+    try {
+        const id = mongoose.Types.ObjectId(req.params);
+        const data = req.body;
+        const user = User.findById(data._id);
+        if (!user) return res.status(400).json({ message: "user not found" });
+        const result = await User.findByIdAndUpdate(id, data, { new: true });
+        res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ message: "something went wrong" });
+    }
+};
+export { signin, signup, refreshToken, update };
