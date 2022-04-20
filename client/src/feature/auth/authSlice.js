@@ -41,22 +41,9 @@ export const updateProfile = createAsyncThunk(
     }
 );
 
-// get user posts
-export const getUserPosts = createAsyncThunk(
-    "auth/getUserPost",
-    async (username) => {
-        try {
-            const res = await axios.get(`${url}/${username}`);
-            return res.data.posts;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-);
-
 const authSlice = createSlice({
     name: "auth",
-    initialState: { errors: {}, posts: [] },
+    initialState: { errors: {} },
     reducers: {},
     extraReducers: {
         [signUp.fulfilled]: (state, action) => {
@@ -93,9 +80,6 @@ const authSlice = createSlice({
 
             localStorage.setItem("profile", JSON.stringify(action.payload));
             return { ...state, errors: {} };
-        },
-        [getUserPosts.fulfilled]: (state, action) => {
-            return { ...state, posts: [...action.payload] };
         },
     },
 });

@@ -129,15 +129,5 @@ const update = async (req, res) => {
         return res.status(500).json({ message: "something went wrong" });
     }
 };
-const show = async (req, res) => {
-    try {
-        const username = req.params.username;
-        const user = await User.findOne({ username });
 
-        await user.populate("posts");
-        return res.status(200).json(user);
-    } catch (error) {
-        return res.status(500).json({ message: "something went wrong" });
-    }
-};
-export { signin, signup, refreshToken, update, show };
+export { signin, signup, refreshToken, update };

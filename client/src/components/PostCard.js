@@ -46,7 +46,7 @@ function PostCard({ post }) {
                                     >
                                         <FontAwesomeIcon
                                             icon={faEllipsisVertical}
-                                            className="block text-2xl text-white "
+                                            className="block text-2xl text-white"
                                         />
                                     </div>
 
@@ -107,7 +107,7 @@ function PostCard({ post }) {
                             <Link to="#" className="relative block">
                                 <img
                                     alt="profile"
-                                    src={post.image}
+                                    src={post.user.avatar}
                                     className="object-cover w-10 h-10 mx-auto rounded-full "
                                 />
                             </Link>

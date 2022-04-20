@@ -10,11 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserPosts, updateProfile } from "../../feature/auth/authSlice";
 import { useParams } from "react-router-dom";
 import PostCard from "../../components/PostCard";
+import { fetchPosts } from "../../feature/post/postSlice";
 
 function EditProfilePage() {
     const dispatch = useDispatch();
     const { username } = useParams();
     const auth = useSelector((state) => state.auth);
+    const posts = useSelector((state) => state.posts.posts);
     const profileFormValidation = Yup.object({
         name: Yup.string().required("name is required"),
         email: Yup.string()
@@ -25,10 +27,9 @@ function EditProfilePage() {
             .min(5, "username must be at least 5 character"),
         avatar: Yup.string(),
     });
-    console.log(auth.posts);
     const user = JSON.parse(localStorage.getItem("profile"));
     useEffect(() => {
-        dispatch(getUserPosts(username));
+        dispatch(fetchPosts(username));
     }, [dispatch]);
     const {
         register,
@@ -117,8 +118,8 @@ function EditProfilePage() {
                         </div>
                     </form>
                 </div>
-                {auth.posts.length !== 0 &&
-                    auth.posts.map((post) => (
+                {posts.length !== 0 &&
+                    posts.map((post) => (
                         <div className="mb-5" key={post._id}>
                             <PostCard post={post}></PostCard>
                         </div>

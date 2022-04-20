@@ -24,10 +24,17 @@ API.interceptors.request.use(async (req) => {
     return req;
 });
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-    const res = await API.get(`/posts`);
-    return res.data;
-});
+export const fetchPosts = createAsyncThunk(
+    "posts/fetchPosts",
+    async (username) => {
+        if (username) {
+            const res = await API.get(`/posts/${username}/posts`);
+            return res.data;
+        }
+        const res = await API.get(`/posts`);
+        return res.data;
+    }
+);
 export const createPost = createAsyncThunk(
     "posts/createPost",
     async (newPost) => {
@@ -82,7 +89,7 @@ export const likePost = createAsyncThunk("posts/likePost", async (id) => {
 const postSlice = createSlice({
     name: "Posts",
     initialState: {
-        posts: {},
+        posts: [],
         editPost: {},
     },
     reducers: {

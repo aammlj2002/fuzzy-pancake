@@ -1,10 +1,17 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PostCard from "../../components/PostCard";
 import PostCreateForm from "../../components/PostCreateForm";
 import PostEditForm from "../../components/PostEditForm";
+import { fetchPosts } from "../../feature/post/postSlice";
 
 function Posts() {
+    const dispatch = useDispatch();
+
+    // fetch post after index component is rendered
+    useEffect(() => {
+        dispatch(fetchPosts());
+    }, [dispatch]);
     const posts = useSelector((state) => state.posts.posts);
     const editPost = useSelector((state) => state.posts.editPost);
 

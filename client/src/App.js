@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import IndexPage from "./Pages/Post/IndexPage";
-import { fetchPosts } from "./feature/post/postSlice";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/Auth/LoginPage";
 import RegisterPage from "./Pages/Auth/RegisterPage";
@@ -12,12 +10,6 @@ import AppLayout from "./layouts/AppLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
 const App = (props) => {
-    const dispatch = useDispatch();
-
-    // fetch post after app component is rendered
-    useEffect(() => {
-        dispatch(fetchPosts());
-    }, [dispatch]);
     return (
         <>
             <Router>

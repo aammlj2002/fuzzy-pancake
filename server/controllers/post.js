@@ -139,4 +139,21 @@ const addLike = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 };
-export { index, create, update, destroy, addLike };
+const getPostByUser = async (req, res) => {
+    try {
+        const username = req.params.username;
+        const user = await User.findOne({ username });
+
+        // populate posts and posts' user
+        const { posts } = await user.populate({
+            path: "posts",
+            populate: { path: "user" },
+        });
+        console.log(posts);
+
+        return res.status(200).json(posts);
+    } catch (error) {
+        return res.status(500).json({ message: "something went wrong" });
+    }
+};
+export { index, create, update, destroy, addLike, getPostByUser };
