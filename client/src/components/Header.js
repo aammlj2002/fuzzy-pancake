@@ -52,13 +52,13 @@ function Header() {
                                     />
                                 </div>
                                 <Link
-                                    to={`/user/${profile.username}`}
+                                    to={`/user/${profile?.username}`}
                                     className="flex items-center w-2/5 "
                                 >
                                     {profile ? (
                                         <img
                                             className="w-12 h-12 rounded-full"
-                                            src={profile.avatar}
+                                            src={profile?.avatar}
                                         />
                                     ) : (
                                         ""

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IndexPage from "./Pages/Post/IndexPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/Auth/LoginPage";
@@ -8,8 +8,21 @@ import ResetPasswordPage from "./Pages/Auth/ResetPasswordPage";
 import ProfilePage from "./Pages/Auth/ProfilePage";
 import AppLayout from "./layouts/AppLayout";
 import AuthLayout from "./layouts/AuthLayout";
+import AuthMiddleware from "./middleware/AuthMiddleware";
+import decode from "jwt-decode";
 
 const App = (props) => {
+    const token = localStorage.getItem("accessToken");
+    let auth;
+    try {
+        // if token can be decoded, auth is true
+        decode(token);
+        auth = true;
+    } catch (error) {
+        // if not, auth is false
+        auth = false;
+    }
+
     return (
         <>
             <Router>
@@ -27,10 +40,22 @@ const App = (props) => {
                         />
                     </Route>
                     <Route path="/" element={<AppLayout />}>
-                        <Route path="/" element={<IndexPage />} />
+                        <Route
+                            path="/"
+                            element={
+                                <AuthMiddleware auth={auth}>
+                                    <IndexPage />
+                                </AuthMiddleware>
+                            }
+                        />
+
                         <Route
                             path="/user/:username"
-                            element={<ProfilePage />}
+                            element={
+                                <AuthMiddleware auth={auth}>
+                                    <ProfilePage />
+                                </AuthMiddleware>
+                            }
                         />
                     </Route>
                 </Routes>
