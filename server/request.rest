@@ -58,3 +58,7 @@ Content-Type: application/json
     "email": "aamm@gmail.com",
     "username": "robin123"
 }
+###
+GET http://localhost:8000/auth/luffy1234
+Content-Type: application/json
+

@@ -7,7 +7,7 @@ import LoginPage from "./Pages/Auth/LoginPage";
 import RegisterPage from "./Pages/Auth/RegisterPage";
 import ForgotPasswordPage from "./Pages/Auth/ForgotPasswordPage";
 import ResetPasswordPage from "./Pages/Auth/ResetPasswordPage";
-import EditProfilePage from "./Pages/Auth/EditProfilePage";
+import ProfilePage from "./Pages/Auth/ProfilePage";
 import AppLayout from "./layouts/AppLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
@@ -36,7 +36,10 @@ const App = (props) => {
                     </Route>
                     <Route path="/" element={<AppLayout />}>
                         <Route path="/" element={<IndexPage />} />
-                        <Route path="/:id/edit" element={<EditProfilePage />} />
+                        <Route
+                            path="/user/:username"
+                            element={<ProfilePage />}
+                        />
                     </Route>
                 </Routes>
             </Router>

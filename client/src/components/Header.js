@@ -35,9 +35,9 @@ function Header() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex items-center ">
+                            <div className="flex items-center gap-5">
                                 {/* search box */}
-                                <div className="relative flex items-center w-full h-full lg:w-64 group">
+                                <div className="relative flex items-center w-3/5 h-full lg:w-64 group">
                                     <svg
                                         className="absolute left-0 z-20 block w-4 h-4 ml-4 text-gray-400 pointer-events-none fill-current "
                                         xmlns="http://www.w3.org/2000/svg"
@@ -51,9 +51,19 @@ function Header() {
                                         placeholder="Search"
                                     />
                                 </div>
-                                <div className="flex items-center ml-5">
-                                    {profile ? profile.name : ""}
-                                </div>
+                                <Link
+                                    to={`/user/${profile.username}`}
+                                    className="flex items-center w-2/5 "
+                                >
+                                    {profile ? (
+                                        <img
+                                            className="w-12 h-12 rounded-full"
+                                            src={profile.avatar}
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -30,9 +30,10 @@ export const updateProfile = createAsyncThunk(
     async (formData) => {
         try {
             const res = await axios.patch(
-                `${url}/${formData._id}/update`,
+                `${url}/${formData.username}/update`,
                 formData
             );
+            console.log(res.data);
             return res.data;
         } catch (error) {
             return error.response.data;
@@ -40,9 +41,22 @@ export const updateProfile = createAsyncThunk(
     }
 );
 
+// get user posts
+export const getUserPosts = createAsyncThunk(
+    "auth/getUserPost",
+    async (username) => {
+        try {
+            const res = await axios.get(`${url}/${username}`);
+            return res.data.posts;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+);
+
 const authSlice = createSlice({
     name: "auth",
-    initialState: { errors: {} },
+    initialState: { errors: {}, posts: [] },
     reducers: {},
     extraReducers: {
         [signUp.fulfilled]: (state, action) => {
@@ -79,6 +93,9 @@ const authSlice = createSlice({
 
             localStorage.setItem("profile", JSON.stringify(action.payload));
             return { ...state, errors: {} };
+        },
+        [getUserPosts.fulfilled]: (state, action) => {
+            return { ...state, posts: [...action.payload] };
         },
     },
 });

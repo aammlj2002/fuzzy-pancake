@@ -7,14 +7,14 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProfile } from "../../feature/auth/authSlice";
+import { getUserPosts, updateProfile } from "../../feature/auth/authSlice";
+import { useParams } from "react-router-dom";
+import PostCard from "../../components/PostCard";
 
 function EditProfilePage() {
     const dispatch = useDispatch();
+    const { username } = useParams();
     const auth = useSelector((state) => state.auth);
-    useEffect(() => {
-        console.log(auth);
-    }, [auth]);
     const profileFormValidation = Yup.object({
         name: Yup.string().required("name is required"),
         email: Yup.string()
@@ -25,7 +25,11 @@ function EditProfilePage() {
             .min(5, "username must be at least 5 character"),
         avatar: Yup.string(),
     });
+    console.log(auth.posts);
     const user = JSON.parse(localStorage.getItem("profile"));
+    useEffect(() => {
+        dispatch(getUserPosts(username));
+    }, [dispatch]);
     const {
         register,
         getValues,
@@ -36,7 +40,6 @@ function EditProfilePage() {
     } = useForm({
         resolver: yupResolver(profileFormValidation),
         defaultValues: {
-            _id: user._id,
             name: user.name,
             email: user.email,
             username: user.username,
@@ -48,8 +51,8 @@ function EditProfilePage() {
     };
     return (
         <>
-            <div className="w-2/5 py-12 mx-auto bg-gray-100">
-                <div className="w-full py-8 bg-white rounded-lg shadow px-7">
+            <div className="w-2/6 py-12 mx-auto bg-gray-100">
+                <div className="w-full py-8 mb-5 bg-white rounded-lg shadow px-7">
                     <div className="mb-5 text-xl font-semibold text-center text-gray-600 capitalize ">
                         update profile information
                     </div>
@@ -114,6 +117,12 @@ function EditProfilePage() {
                         </div>
                     </form>
                 </div>
+                {auth.posts.length !== 0 &&
+                    auth.posts.map((post) => (
+                        <div className="mb-5" key={post._id}>
+                            <PostCard post={post}></PostCard>
+                        </div>
+                    ))}
             </div>
         </>
     );

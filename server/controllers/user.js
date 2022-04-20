@@ -60,7 +60,6 @@ const signup = async (req, res) => {
                 email,
                 password: hashedPassword,
             });
-            console.log(result);
         } catch (error) {
             console.log(error.message);
         }
@@ -98,10 +97,10 @@ const refreshToken = (req, res) => {
 };
 const update = async (req, res) => {
     try {
-        const id = mongoose.Types.ObjectId(req.params);
+        const username = req.params.username;
         const data = req.body;
 
-        const user = await User.findById(id);
+        const user = await User.findOne({ username });
         if (!user) return res.status(400).json({ message: "user not found" });
 
         const isEmailExist = await User.findOne({ email: data.email });
@@ -115,7 +114,6 @@ const update = async (req, res) => {
             });
 
         const isUsernameExist = await User.findOne({ username: data.username });
-        console.log(isUsernameExist);
         // if username is exsit and inputed username is equal to username from db
         if (isUsernameExist && data.username !== user.username)
             return res.status(400).json({
@@ -123,11 +121,23 @@ const update = async (req, res) => {
                     username: "username already used",
                 },
             });
-
-        const result = await User.findByIdAndUpdate(id, data, { new: true });
+        const result = await User.findByIdAndUpdate(user._id, data, {
+            new: true,
+        });
         res.status(200).json(result);
     } catch (error) {
         return res.status(500).json({ message: "something went wrong" });
     }
 };
-export { signin, signup, refreshToken, update };
+const show = async (req, res) => {
+    try {
+        const username = req.params.username;
+        const user = await User.findOne({ username });
+
+        await user.populate("posts");
+        return res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).json({ message: "something went wrong" });
+    }
+};
+export { signin, signup, refreshToken, update, show };
