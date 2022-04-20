@@ -9,6 +9,7 @@ import {
     faEllipsisVertical,
     faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
+import dateFormat from "dateformat";
 
 function PostCard({ post }) {
     const [showMenu, setShowMenu] = useState(false);
@@ -116,7 +117,10 @@ function PostCard({ post }) {
                                     {post.user.name}
                                 </p>
                                 <p className="text-gray-400 ">
-                                    {post.createdAt}
+                                    {dateFormat(
+                                        post.createdAt,
+                                        "mmmm dS, yyyy"
+                                    )}
                                 </p>
                             </div>
                         </div>
@@ -141,7 +145,8 @@ function PostCard({ post }) {
                                     />
                                 </div>
                                 <span className="ml-2 text-sm">
-                                    {post.likes.length} Likes
+                                    {post.likes.length !== 0 &&
+                                        post.likes.length}
                                 </span>
                             </div>
                         </div>
