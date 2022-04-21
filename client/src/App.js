@@ -9,6 +9,7 @@ import ProfilePage from "./Pages/Auth/ProfilePage";
 import AppLayout from "./layouts/AppLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import AuthMiddleware from "./middleware/AuthMiddleware";
+import GuestMiddleware from "./middleware/GuestMiddleware";
 import decode from "jwt-decode";
 
 const App = (props) => {
@@ -28,15 +29,37 @@ const App = (props) => {
             <Router>
                 <Routes>
                     <Route element={<AuthLayout />}>
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
+                        <Route
+                            path="/login"
+                            element={
+                                <GuestMiddleware auth={auth}>
+                                    <LoginPage />
+                                </GuestMiddleware>
+                            }
+                        />
+                        <Route
+                            path="/register"
+                            element={
+                                <GuestMiddleware auth={auth}>
+                                    <RegisterPage />
+                                </GuestMiddleware>
+                            }
+                        />
                         <Route
                             path="/forgotpassword"
-                            element={<ForgotPasswordPage />}
+                            element={
+                                <GuestMiddleware auth={auth}>
+                                    <ForgotPasswordPage />
+                                </GuestMiddleware>
+                            }
                         />
                         <Route
                             path="/resetpassword"
-                            element={<ResetPasswordPage />}
+                            element={
+                                <GuestMiddleware auth={auth}>
+                                    <ResetPasswordPage />
+                                </GuestMiddleware>
+                            }
                         />
                     </Route>
                     <Route path="/" element={<AppLayout />}>
