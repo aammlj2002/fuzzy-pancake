@@ -9,9 +9,11 @@ import FileBase64 from "react-file-base64";
 import Label from "./element/Label";
 import Error from "./element/Error";
 import Button from "./element/Button";
+import { useNavigate } from "react-router-dom";
 
 function ProfileEditForm({ username }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const auth = useSelector((state) => state.auth);
     const profileFormValidation = Yup.object({
         name: Yup.string().required("name is required"),
@@ -45,6 +47,12 @@ function ProfileEditForm({ username }) {
     });
     const onSubmit = (data) => {
         dispatch(updateProfile(data));
+    };
+    const logout = () => {
+        localStorage.removeItem("profile");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        navigate("/login");
     };
     return (
         <>
@@ -103,7 +111,14 @@ function ProfileEditForm({ username }) {
                         )}
                     </div>
                     <div className="flex justify-end">
-                        <Button type="submit" className="w-auto">
+                        <Button
+                            type="button"
+                            onClick={logout}
+                            className="w-auto"
+                        >
+                            Log out
+                        </Button>
+                        <Button type="submit" className="w-auto ml-5 ">
                             Save
                         </Button>
                     </div>

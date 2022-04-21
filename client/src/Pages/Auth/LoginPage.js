@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Label from "../../components/element/Label";
 import Input from "../../components/element/Input";
 import Button from "../../components/element/Button";
 import Anchor from "../../components/element/Anchor";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../feature/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 function LoginPage() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -14,9 +16,12 @@ function LoginPage() {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(signIn(formData));
+        const res = await dispatch(signIn(formData));
+        if (res) {
+            navigate("/");
+        }
     };
     return (
         <>

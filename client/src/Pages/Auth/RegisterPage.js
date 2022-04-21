@@ -5,18 +5,23 @@ import Button from "../../components/element/Button";
 import Anchor from "../../components/element/Anchor";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../feature/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
         confirmPassword: "",
     });
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(signUp(formData));
+        const res = await dispatch(signUp(formData));
+        if (res) {
+            navigate("/");
+        }
     };
     const handleChange = (e) => {
         // get input name and set input value
