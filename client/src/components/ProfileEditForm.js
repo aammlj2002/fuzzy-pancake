@@ -27,12 +27,21 @@ function ProfileEditForm({ username }) {
     });
     useEffect(() => {
         dispatch(fetchPosts(username));
-    }, [dispatch]);
+
+        // reset after profile is fetched
+        reset({
+            name: auth.profile.name,
+            email: auth.profile.email,
+            username: auth.profile.username,
+            avatar: auth.profile.avatar,
+        });
+    }, [dispatch, auth]);
     const {
         register,
         getValues,
         setValue,
         watch,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -50,7 +59,6 @@ function ProfileEditForm({ username }) {
     const logout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        return navigate("/login");
     };
     return (
         <>

@@ -3,7 +3,7 @@ import Label from "../../components/element/Label";
 import Input from "../../components/element/Input";
 import Button from "../../components/element/Button";
 import Anchor from "../../components/element/Anchor";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signIn } from "../../feature/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 function LoginPage() {
@@ -16,12 +16,9 @@ function LoginPage() {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const res = await dispatch(signIn(formData));
-        if (res) {
-            navigate("/");
-        }
+        dispatch(signIn(formData));
     };
     return (
         <>

@@ -6,13 +6,13 @@ import decode from "jwt-decode";
 function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const id = decode(JSON.parse(localStorage.getItem("accessToken"))).id;
     useEffect(() => {
-        dispatch(getProfile(id)).then((res) => {
-            if (res.error) {
-                return navigate("/login");
-            }
-        });
+        try {
+            const id = decode(
+                JSON.parse(localStorage.getItem("accessToken"))
+            ).id;
+            dispatch(getProfile(id));
+        } catch (error) {}
     }, [dispatch]);
     const profile = useSelector((state) => state.auth.profile);
     return (
