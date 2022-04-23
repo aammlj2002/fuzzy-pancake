@@ -1,6 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import decode from "jwt-decode";
+
+const currentUser = decode(JSON.parse(localStorage.getItem("accessToken")));
 const API = axios.create({
     baseURL: "http://localhost:8000",
 });
@@ -74,10 +76,10 @@ export const deletePost = createAsyncThunk("posts/deletePost", async (id) => {
     }
 });
 
-export const likePost = createAsyncThunk("posts/likePost", async (id) => {
+export const likePost = createAsyncThunk("posts/likePost", async (post_id) => {
     try {
-        const res = await API.patch(`/posts/like/${id}`, {
-            user: JSON.parse(localStorage.getItem("profile"))._id,
+        const res = await API.patch(`/posts/like/${post_id}`, {
+            user: currentUser.id,
         });
         return res.data;
     } catch (error) {
