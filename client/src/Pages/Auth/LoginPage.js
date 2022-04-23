@@ -4,7 +4,7 @@ import Input from "../../components/element/Input";
 import Button from "../../components/element/Button";
 import Anchor from "../../components/element/Anchor";
 import { useDispatch } from "react-redux";
-import { signIn } from "../../feature/auth/authSlice";
+import { setAuthenticated, signIn } from "../../feature/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 function LoginPage() {
     const dispatch = useDispatch();

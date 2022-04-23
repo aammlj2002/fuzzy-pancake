@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { updateProfile } from "../feature/auth/authSlice";
+import { setAuthenticated, updateProfile } from "../feature/auth/authSlice";
 import { fetchPosts } from "../feature/post/postSlice";
 import FileBase64 from "react-file-base64";
 import Label from "./element/Label";
@@ -59,6 +59,7 @@ function ProfileEditForm({ username }) {
     const logout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        dispatch(setAuthenticated(false));
     };
     return (
         <>

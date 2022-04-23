@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 // base url
 const url = "http://localhost:8000/auth";
@@ -48,8 +50,21 @@ export const getProfile = createAsyncThunk("auth/getProfile", async (id) => {
 
 const authSlice = createSlice({
     name: "auth",
-    initialState: { profile: {}, errors: {} },
-    reducers: {},
+    initialState: { profile: {}, errors: {}, authenticated: true },
+    reducers: {
+        isAuthenticated: (state, action) => {
+            const token = localStorage.getItem("accessToken");
+            try {
+                const decoded = decode(token);
+                if (decoded) return { ...state, authenticated: true };
+            } catch (error) {
+                return { ...state, authenticated: false };
+            }
+        },
+        setAuthenticated: (state, action) => {
+            return { ...state, authenticated: action.payload };
+        },
+    },
     extraReducers: {
         [signUp.fulfilled]: (state, action) => {
             localStorage.setItem(
@@ -60,6 +75,7 @@ const authSlice = createSlice({
                 "refreshToken",
                 JSON.stringify(action.payload.refreshToken)
             );
+            return { ...state, authenticated: true };
         },
         [signIn.fulfilled]: (state, action) => {
             localStorage.setItem(
@@ -70,6 +86,7 @@ const authSlice = createSlice({
                 "refreshToken",
                 JSON.stringify(action.payload.refreshToken)
             );
+            return { ...state, authenticated: true };
         },
         [updateProfile.fulfilled]: (state, action) => {
             if (action.payload.errors)
@@ -82,4 +99,5 @@ const authSlice = createSlice({
         },
     },
 });
+export const { setAuthenticated, isAuthenticated } = authSlice.actions;
 export default authSlice.reducer;

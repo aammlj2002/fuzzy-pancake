@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import decode from "jwt-decode";
-
 const API = axios.create({
     baseURL: "http://localhost:8000",
 });

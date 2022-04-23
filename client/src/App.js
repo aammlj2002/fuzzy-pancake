@@ -10,23 +10,15 @@ import AppLayout from "./layouts/AppLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import AuthMiddleware from "./middleware/AuthMiddleware";
 import GuestMiddleware from "./middleware/GuestMiddleware";
-import decode from "jwt-decode";
+import { useDispatch, useSelector } from "react-redux";
+import { isAuthenticated } from "./feature/auth/authSlice";
 
 const App = (props) => {
-    const token = localStorage.getItem("accessToken");
-    const [auth, setAuth] = useState(true);
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth.authenticated);
     useEffect(() => {
-        try {
-            // if token can be decoded, auth is true
-            const deocded = decode(token);
-            if (deocded) {
-                setAuth(true);
-            }
-        } catch (error) {
-            // if not, auth is false
-            setAuth(false);
-        }
-    }, []);
+        dispatch(isAuthenticated());
+    }, [auth]);
 
     return (
         <>
