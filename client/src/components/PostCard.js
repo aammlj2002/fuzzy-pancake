@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deletePost, setEditPost } from "../feature/post/postSlice";
 import { likePost } from "../feature/post/postSlice";
 import { Link } from "react-router-dom";
@@ -14,6 +14,7 @@ import dateFormat from "dateformat";
 function PostCard({ post }) {
     const [showMenu, setShowMenu] = useState(false);
     const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.auth.profile);
     const toggleMenu = () => {
         setShowMenu(!showMenu);
     };
@@ -24,11 +25,7 @@ function PostCard({ post }) {
         dispatch(deletePost(id));
     };
     const isLiked = () => {
-        return (
-            post.likes.indexOf(
-                JSON.parse(localStorage.getItem("profile"))._id
-            ) !== -1
-        );
+        return post.likes.indexOf(currentUser._id) !== -1;
     };
 
     return (

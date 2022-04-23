@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Label from "./element/Label";
 import Button from "./element/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ function PostCreateForm(props) {
     const editPost = useSelector((state) => state.posts.editPost);
     const dispatch = useDispatch();
     const [tag, setTag] = useState("");
+    const currentUser = useSelector((state) => state.auth.profile);
     const {
         register,
         getValues,
@@ -30,7 +31,7 @@ function PostCreateForm(props) {
             description: editPost.description,
             tags: editPost.tags,
             image: editPost.image,
-            user: JSON.parse(localStorage.getItem("profile"))._id,
+            user: currentUser._id,
         },
     });
     const onSubmit = async (data) => {

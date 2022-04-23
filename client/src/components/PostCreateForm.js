@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Label from "../components/element/Label";
 import Button from "../components/element/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../feature/post/postSlice";
 import Error from "../components/element/Error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +15,7 @@ import PostFormValidation from "../validation/postForm";
 function PostCreateForm() {
     const dispatch = useDispatch();
     const [tag, setTag] = useState("");
+    const currentUser = useSelector((state) => state.auth.profile);
     const {
         register,
         getValues,
@@ -30,7 +31,7 @@ function PostCreateForm() {
             description: "",
             tags: [],
             image: null,
-            user: JSON.parse(localStorage.getItem("profile"))._id,
+            user: currentUser._id,
         },
     });
     const addTag = () => {

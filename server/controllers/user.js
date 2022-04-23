@@ -1,7 +1,6 @@
 import User from "../Models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
 
 const signin = async (req, res) => {
     // get inputed data
@@ -129,5 +128,15 @@ const update = async (req, res) => {
         return res.status(500).json({ message: "something went wrong" });
     }
 };
+const getUser = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findById(id);
+        if (!user) return res.status(400).json({ message: "user not found" });
+        return res.status(200).json({ user });
+    } catch (error) {
+        return res.status(500).json({ message: "something went wrong" });
+    }
+};
 
-export { signin, signup, refreshToken, update };
+export { signin, signup, refreshToken, update, getUser };

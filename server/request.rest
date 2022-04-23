@@ -60,5 +60,7 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:8000/auth/luffy1234
-Content-Type: application/json
+
+###
+GET http://localhost:8000/auth/625e46ecd7bf19cd7ed36210
 

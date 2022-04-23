@@ -1,7 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 function Profile() {
-    const profile = JSON.parse(localStorage.getItem("profile"));
+    const profile = useSelector((state) => state.auth.profile);
     return (
         <>
             <div className="py-8 mb-5 bg-white rounded-lg shadow px-7">
@@ -14,7 +15,7 @@ function Profile() {
                         }
                     />
                     <div className="flex flex-col">
-                        <div className="text-xl">{profile.name}</div>
+                        <div className="text-xl">{profile.name ?? null}</div>
                         <div className="text-sm text-gray-700 ">
                             {"@" + profile.username}
                         </div>

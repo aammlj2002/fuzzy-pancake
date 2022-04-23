@@ -1,7 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../feature/auth/authSlice";
+import decode from "jwt-decode";
 function Header() {
-    const profile = JSON.parse(localStorage.getItem("profile"));
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const id = decode(JSON.parse(localStorage.getItem("accessToken"))).id;
+    useEffect(() => {
+        dispatch(getProfile(id)).then((res) => {
+            if (res.error) {
+                return navigate("/login");
+            }
+        });
+    }, [dispatch]);
+    const profile = useSelector((state) => state.auth.profile);
     return (
         <>
             <div>

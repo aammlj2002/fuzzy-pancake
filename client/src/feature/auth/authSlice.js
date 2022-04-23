@@ -33,7 +33,6 @@ export const updateProfile = createAsyncThunk(
                 `${url}/${formData.username}/update`,
                 formData
             );
-            console.log(res.data);
             return res.data;
         } catch (error) {
             return error.response.data;
@@ -41,16 +40,18 @@ export const updateProfile = createAsyncThunk(
     }
 );
 
+// get profile data
+export const getProfile = createAsyncThunk("auth/getProfile", async (id) => {
+    const res = await axios.get(`${url}/${id}`);
+    return res.data;
+});
+
 const authSlice = createSlice({
     name: "auth",
-    initialState: { errors: {} },
+    initialState: { profile: {}, errors: {} },
     reducers: {},
     extraReducers: {
         [signUp.fulfilled]: (state, action) => {
-            localStorage.setItem(
-                "profile",
-                JSON.stringify(action.payload.result)
-            );
             localStorage.setItem(
                 "accessToken",
                 JSON.stringify(action.payload.accessToken)
@@ -61,10 +62,6 @@ const authSlice = createSlice({
             );
         },
         [signIn.fulfilled]: (state, action) => {
-            localStorage.setItem(
-                "profile",
-                JSON.stringify(action.payload.result)
-            );
             localStorage.setItem(
                 "accessToken",
                 JSON.stringify(action.payload.accessToken)
@@ -78,8 +75,10 @@ const authSlice = createSlice({
             if (action.payload.errors)
                 return { ...state, errors: action.payload.errors };
 
-            localStorage.setItem("profile", JSON.stringify(action.payload));
-            return { ...state, errors: {} };
+            return { ...state, errors: {}, profile: action.payload };
+        },
+        [getProfile.fulfilled]: (state, action) => {
+            return { ...state, profile: action.payload.user };
         },
     },
 });
