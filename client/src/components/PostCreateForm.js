@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Label from "../components/element/Label";
 import Button from "../components/element/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import PostFormValidation from "../validation/postForm";
 function PostCreateForm() {
     const dispatch = useDispatch();
     const [tag, setTag] = useState("");
+
     const currentUser = useSelector((state) => state.auth.profile);
     const {
         register,
@@ -34,6 +35,16 @@ function PostCreateForm() {
             user: currentUser._id,
         },
     });
+    useEffect(() => {
+        // reset after profile is fetched
+        reset({
+            title: "",
+            description: "",
+            tags: [],
+            image: null,
+            user: currentUser._id,
+        });
+    }, [currentUser]);
     const addTag = () => {
         // if inputed tag is not include in tags array and not empty string
         if (getValues("tags").indexOf(tag.trim()) == -1 && tag.trim()) {

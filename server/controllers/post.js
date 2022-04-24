@@ -28,6 +28,7 @@ const index = async (req, res) => {
 };
 const create = async (req, res) => {
     const reqPost = req.body;
+    console.log(reqPost);
     try {
         try {
             // create post

@@ -27,7 +27,8 @@ function ProfileEditForm({ username }) {
     });
     useEffect(() => {
         dispatch(fetchPosts({ username }));
-
+    }, [dispatch]);
+    useEffect(() => {
         // reset after profile is fetched
         reset({
             name: auth.profile.name,
@@ -35,7 +36,7 @@ function ProfileEditForm({ username }) {
             username: auth.profile.username,
             avatar: auth.profile.avatar,
         });
-    }, [dispatch, auth]);
+    }, [auth]);
     const {
         register,
         getValues,

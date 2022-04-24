@@ -43,6 +43,7 @@ export const fetchPosts = createAsyncThunk(
 export const createPost = createAsyncThunk(
     "posts/createPost",
     async (newPost) => {
+        console.log(newPost);
         const res = await API.post(`/posts/create`, newPost, {
             headers: {
                 "Content-Type": "application/json",
