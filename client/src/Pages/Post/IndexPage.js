@@ -22,7 +22,7 @@ function Posts() {
             <div className="w-full p-12 bg-gray-100">
                 <div className="flex items-end justify-between px-6 mb-6 header">
                     <p className="text-4xl font-bold text-gray-800 ">
-                        Lastest Posts
+                        {search ? `Search: ${search}` : "Lastest Posts"}
                     </p>
                 </div>
                 <div className="flex items-start gap-12 flex-justify">

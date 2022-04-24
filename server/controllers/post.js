@@ -15,9 +15,9 @@ const index = async (req, res) => {
         // get all post
         if (search) {
             const searchQuery = new RegExp(search, "i");
-            const post = await Post.find({ title: searchQuery }).populate(
-                "user"
-            );
+            const post = await Post.find({
+                $or: [{ title: searchQuery }, { description: searchQuery }],
+            }).populate("user");
             return res.status(200).json(post);
         }
         const post = await Post.find().populate("user");
