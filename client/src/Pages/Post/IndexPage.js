@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import PostCard from "../../components/PostCard";
 import PostCreateForm from "../../components/PostCreateForm";
 import PostEditForm from "../../components/PostEditForm";
@@ -7,11 +8,12 @@ import { fetchPosts } from "../../feature/post/postSlice";
 
 function Posts() {
     const dispatch = useDispatch();
-
+    const [searchParams] = useSearchParams();
+    const search = searchParams.get("search");
     // fetch post after index component is rendered
     useEffect(() => {
-        dispatch(fetchPosts());
-    }, [dispatch]);
+        dispatch(fetchPosts({ search }));
+    }, [dispatch, search]);
     const posts = useSelector((state) => state.posts.posts);
     const editPost = useSelector((state) => state.posts.editPost);
 

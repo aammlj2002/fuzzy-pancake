@@ -26,7 +26,7 @@ function ProfileEditForm({ username }) {
         avatar: Yup.string(),
     });
     useEffect(() => {
-        dispatch(fetchPosts(username));
+        dispatch(fetchPosts({ username }));
 
         // reset after profile is fetched
         reset({
