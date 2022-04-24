@@ -1,5 +1,9 @@
-GET http://localhost:8000/posts/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY0OTY1MzkwMiwiZXhwIjoxNjQ5NjU3NTAyfQ.Jm3N52PPGJPQmYj_fTR0SNcjKfg03znApzDRFfzsXrU
+GET http://localhost:8000/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY1MDc4NzAyOSwiZXhwIjoxNjUwNzkzMDI5fQ.uDwVx9RsOHTrrsCboe0YSpbaWdjxF1QB8uwfEcHJy7k
+
+###
+GET http://localhost:8000/posts?search=zoro
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY1MDc4NzAyOSwiZXhwIjoxNjUwNzkzMDI5fQ.uDwVx9RsOHTrrsCboe0YSpbaWdjxF1QB8uwfEcHJy7k
 
 ###
 POST http://localhost:8000/posts/create

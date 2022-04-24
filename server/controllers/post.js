@@ -9,10 +9,16 @@ const isExist = (id) => {
     }
 };
 const index = async (req, res) => {
+    const { search } = req.query;
     try {
         // get all post
+        if (search) {
+            const searchQuery = new RegExp(search, "i");
+            const post = await Post.find({ title: searchQuery });
+            return res.status(200).json(post);
+        }
         const post = await Post.find().populate("user");
-        res.status(200).json(post);
+        return res.status(200).json(post);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
