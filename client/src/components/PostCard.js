@@ -91,8 +91,10 @@ function PostCard({ post }) {
                         <p className="mb-2 text-xl font-medium text-gray-800 ">
                             {post.title}
                         </p>
-                        <p className="font-light text-gray-400 text-md">
-                            {post.description}
+                        <p className="font-light text-gray-600 text-md">
+                            {post.description.length < 100
+                                ? post.description
+                                : `${post.description.slice(0, 100)}...`}
                         </p>
                         <p className="font-light text-blue-400 text-md">
                             {post.tags.map((tag) => (
@@ -102,7 +104,10 @@ function PostCard({ post }) {
                             ))}
                         </p>
                         <div className="flex items-center mt-4">
-                            <Link to="#" className="relative block">
+                            <Link
+                                to={`/user/${post.user.username}`}
+                                className="relative block"
+                            >
                                 <img
                                     alt="profile"
                                     src={post.user.avatar}
