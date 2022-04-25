@@ -16,11 +16,32 @@ function Pagination({ links }) {
                                 key={link.label}
                                 to={link.url ?? currentUrl}
                                 type="button"
-                                className={`w-full px-4 py-2 text-base text-gray-500 bg-white border-t border-r border-b hover:bg-gray-100 ${
+                                onClick={(e) => {
+                                    // disable url null buttton
+                                    if (
+                                        link.url == null &&
+                                        (link.label == "next" || "previous")
+                                    ) {
+                                        e.preventDefault();
+                                    }
+                                }}
+                                className={`w-full px-4 py-2 text-base  bg-white border-t border-r border-b hover:bg-gray-100 ${
                                     link.label == "next" && "rounded-r-xl"
-                                } ${
+                                } 
+                                ${
                                     link.label == "previous" &&
                                     "rounded-l-xl border-l"
+                                }
+                                ${
+                                    link.active
+                                        ? "text-blue-500"
+                                        : "text-gray-700"
+                                }
+                                ${
+                                    // url null button
+                                    link.url == null &&
+                                    (link.label == "next" || "previous") &&
+                                    "text-gray-300 cursor-not-allowed"
                                 }`}
                             >
                                 {link.label == "next" ? (

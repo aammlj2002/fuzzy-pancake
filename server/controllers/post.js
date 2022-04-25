@@ -27,7 +27,7 @@ const index = async (req, res) => {
             pagination.push({
                 url: `?page=${i + 1}`,
                 label: `${i + 1}`,
-                active: false,
+                active: i + 1 == page ? true : false,
             });
         }
         console.log(page);
