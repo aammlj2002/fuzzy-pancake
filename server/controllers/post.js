@@ -25,7 +25,7 @@ const index = async (req, res) => {
         const pagination = [];
         for (let i = 0; i < totalPage; i++) {
             pagination.push({
-                url: `http://localhost:3000/?page=${i + 1}`,
+                url: `?page=${i + 1}`,
                 label: `${i + 1}`,
                 active: false,
             });
@@ -37,19 +37,13 @@ const index = async (req, res) => {
         return res.status(200).json({
             links: [
                 {
-                    url:
-                        page == 1
-                            ? null
-                            : `http://localhost:3000/?page=${page - 1}`,
+                    url: page == 1 ? null : `?page=${page - 1}`,
                     label: "previous",
                     active: false,
                 },
                 ...pagination,
                 {
-                    url:
-                        page === totalPage
-                            ? null
-                            : `http://localhost:3000/?page=${page + 1}`,
+                    url: page === totalPage ? null : `?page=${page + 1}`,
                     label: "next",
                     active: false,
                 },

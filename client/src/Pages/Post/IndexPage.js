@@ -5,17 +5,21 @@ import PostCard from "../../components/PostCard";
 import PostCreateForm from "../../components/PostCreateForm";
 import PostEditForm from "../../components/PostEditForm";
 import { fetchPosts } from "../../feature/post/postSlice";
+import { Link } from "react-router-dom";
 
 function Posts() {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
     const search = searchParams.get("search");
+    const page = searchParams.get("page");
+    const posts = useSelector((state) => state.posts.posts);
+    const links = useSelector((state) => state.posts.links);
+    const editPost = useSelector((state) => state.posts.editPost);
     // fetch post after index component is rendered
     useEffect(() => {
-        dispatch(fetchPosts({ search }));
-    }, [dispatch, search]);
-    const posts = useSelector((state) => state.posts.posts);
-    const editPost = useSelector((state) => state.posts.editPost);
+        dispatch(fetchPosts({ search, page }));
+    }, [dispatch, search, page]);
+    console.log(links);
 
     return (
         <>
@@ -30,6 +34,15 @@ function Posts() {
                         {posts.length ? (
                             posts.map((post) => (
                                 <PostCard key={post._id} post={post} />
+                            ))
+                        ) : (
+                            <div>loading...</div>
+                        )}
+                        {links.length ? (
+                            links.map((link) => (
+                                <Link to={`${link.url}`} key={link.label}>
+                                    {link.label}
+                                </Link>
                             ))
                         ) : (
                             <div>loading...</div>
