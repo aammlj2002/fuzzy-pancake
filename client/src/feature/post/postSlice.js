@@ -37,6 +37,7 @@ export const fetchPosts = createAsyncThunk(
             return res.data;
         }
         const res = await API.get(`/posts`);
+        console.log(res.data.links);
         return res.data;
     }
 );
@@ -105,7 +106,7 @@ const postSlice = createSlice({
     },
     extraReducers: {
         [fetchPosts.fulfilled]: (state, action) => {
-            return { ...state, posts: action.payload };
+            return { ...state, posts: action.payload.posts };
         },
         [createPost.fulfilled]: (state, action) => {
             return { ...state, posts: [...state.posts, action.payload] };

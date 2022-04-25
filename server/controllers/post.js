@@ -9,9 +9,9 @@ const isExist = (id) => {
     }
 };
 const index = async (req, res) => {
-    const { search } = req.query;
+    const { search, page = 8 } = req.query;
+    const limit = 2;
     try {
-        console.log(search);
         // get all post
         if (search) {
             const searchQuery = new RegExp(search, "i");
@@ -20,8 +20,42 @@ const index = async (req, res) => {
             }).populate("user");
             return res.status(200).json(post);
         }
-        const post = await Post.find().populate("user");
-        return res.status(200).json(post);
+        const count = await Post.countDocuments();
+        const totalPage = Math.ceil(count / limit);
+        const pagination = [];
+        for (let i = 0; i < totalPage; i++) {
+            pagination.push({
+                url: `http://localhost:3000/?page=${i + 1}`,
+                label: `${i + 1}`,
+                active: false,
+            });
+        }
+
+        const posts = await Post.find()
+            .limit(limit)
+            .skip(limit * (page - 1));
+        return res.status(200).json({
+            links: [
+                {
+                    url:
+                        page == 1
+                            ? null
+                            : `http://localhost:3000/?page=${page - 1}`,
+                    label: "previous",
+                    active: false,
+                },
+                ...pagination,
+                {
+                    url:
+                        page === totalPage
+                            ? null
+                            : `http://localhost:3000/?page=${page + 1}`,
+                    label: "next",
+                    active: false,
+                },
+            ],
+            posts,
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
