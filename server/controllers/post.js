@@ -9,7 +9,7 @@ const isExist = (id) => {
     }
 };
 const index = async (req, res) => {
-    const { search, page = 8 } = req.query;
+    const { search, page = 1 } = req.query;
     const limit = 2;
     try {
         // get all post
@@ -30,20 +30,24 @@ const index = async (req, res) => {
                 active: false,
             });
         }
-
+        console.log(page);
+        console.log(totalPage);
         const posts = await Post.find()
             .limit(limit)
             .skip(limit * (page - 1));
         return res.status(200).json({
             links: [
                 {
-                    url: page == 1 ? null : `?page=${page - 1}`,
+                    url: page == 1 ? null : `?page=${parseInt(page) - 1}`,
                     label: "previous",
                     active: false,
                 },
                 ...pagination,
                 {
-                    url: page === totalPage ? null : `?page=${page + 1}`,
+                    url:
+                        page == totalPage
+                            ? null
+                            : `?page=${parseInt(page) + 1}`,
                     label: "next",
                     active: false,
                 },

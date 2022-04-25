@@ -28,7 +28,6 @@ API.interceptors.request.use(async (req) => {
 export const fetchPosts = createAsyncThunk(
     "posts/fetchPosts",
     async ({ username, search, page }) => {
-        console.log(page);
         if (username) {
             const res = await API.get(`/posts/${username}/posts`);
             return res.data;

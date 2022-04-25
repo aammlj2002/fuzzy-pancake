@@ -5,7 +5,7 @@ import PostCard from "../../components/PostCard";
 import PostCreateForm from "../../components/PostCreateForm";
 import PostEditForm from "../../components/PostEditForm";
 import { fetchPosts } from "../../feature/post/postSlice";
-import { Link } from "react-router-dom";
+import Pagination from "../../components/Pagination";
 
 function Posts() {
     const dispatch = useDispatch();
@@ -30,24 +30,19 @@ function Posts() {
                     </p>
                 </div>
                 <div className="flex items-start gap-12 flex-justify">
-                    <div className="grid w-2/3 grid-cols-2 gap-12">
-                        {posts.length ? (
-                            posts.map((post) => (
-                                <PostCard key={post._id} post={post} />
-                            ))
-                        ) : (
-                            <div>loading...</div>
-                        )}
-                        {links.length ? (
-                            links.map((link) => (
-                                <Link to={`${link.url}`} key={link.label}>
-                                    {link.label}
-                                </Link>
-                            ))
-                        ) : (
-                            <div>loading...</div>
-                        )}
+                    <div className="w-2/3">
+                        <div className="grid w-full grid-cols-2 gap-12">
+                            {posts.length ? (
+                                posts.map((post) => (
+                                    <PostCard key={post._id} post={post} />
+                                ))
+                            ) : (
+                                <div>loading...</div>
+                            )}
+                        </div>
+                        <Pagination links={links} />
                     </div>
+
                     <div className="w-1/3 ">
                         {Object.keys(editPost).length === 0 ? (
                             <PostCreateForm />
