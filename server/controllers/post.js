@@ -23,15 +23,24 @@ const index = async (req, res) => {
         const count = await Post.countDocuments();
         const totalPage = Math.ceil(count / limit);
         const pagination = [];
+
         for (let i = 0; i < totalPage; i++) {
-            pagination.push({
-                url: `?page=${i + 1}`,
-                label: `${i + 1}`,
-                active: i + 1 == page ? true : false,
-            });
+            if (i < 2 || (page > i - 2 && page < i + 4) || i >= totalPage - 2) {
+                pagination.push({
+                    url: `?page=${i + 1}`,
+                    label: `${i + 1}`,
+                    active: i + 1 == page ? true : false,
+                });
+            } else if (i === 2 || i === totalPage - 3) {
+                pagination.push({
+                    url: null,
+                    label: `...`,
+                    active: false,
+                });
+            }
         }
-        console.log(page);
-        console.log(totalPage);
+
+        console.log(pagination);
         const posts = await Post.find()
             .limit(limit)
             .skip(limit * (page - 1));
