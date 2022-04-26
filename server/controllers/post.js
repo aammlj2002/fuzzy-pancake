@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Post from "../Models/Post.js";
 import User from "../Models/User.js";
+import paginate from "../utils/paginate.js";
 
 // check that is the inputed item exist in database
 const isExist = (id) => {
@@ -21,46 +22,14 @@ const index = async (req, res) => {
             return res.status(200).json(post);
         }
         const count = await Post.countDocuments();
-        const totalPage = Math.ceil(count / limit);
-        const pagination = [];
+        const links = paginate({ count, limit, page });
+        console.log(links);
 
-        for (let i = 0; i < totalPage; i++) {
-            if (i < 2 || (page > i - 2 && page < i + 4) || i >= totalPage - 2) {
-                pagination.push({
-                    url: `?page=${i + 1}`,
-                    label: `${i + 1}`,
-                    active: i + 1 == page ? true : false,
-                });
-            } else if (i === 2 || i === totalPage - 3) {
-                pagination.push({
-                    url: null,
-                    label: `...`,
-                    active: false,
-                });
-            }
-        }
-
-        console.log(pagination);
         const posts = await Post.find()
             .limit(limit)
             .skip(limit * (page - 1));
         return res.status(200).json({
-            links: [
-                {
-                    url: page == 1 ? null : `?page=${parseInt(page) - 1}`,
-                    label: "previous",
-                    active: false,
-                },
-                ...pagination,
-                {
-                    url:
-                        page == totalPage
-                            ? null
-                            : `?page=${parseInt(page) + 1}`,
-                    label: "next",
-                    active: false,
-                },
-            ],
+            links,
             posts,
         });
     } catch (error) {

@@ -19,7 +19,6 @@ function Posts() {
     useEffect(() => {
         dispatch(fetchPosts({ search, page }));
     }, [dispatch, search, page]);
-    console.log(links);
 
     return (
         <>
