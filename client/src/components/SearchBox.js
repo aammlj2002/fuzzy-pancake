@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import {
+    createSearchParams,
+    useNavigate,
+    useSearchParams,
+} from "react-router-dom";
 
 function SearchBox() {
     const navigate = useNavigate();
+    const query = useSearchParams();
     const [search, setSearch] = useState("");
     const handleKeyUp = (e) => {
         if (e.keyCode === 13) {

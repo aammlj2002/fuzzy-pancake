@@ -27,20 +27,28 @@ API.interceptors.request.use(async (req) => {
 
 export const fetchPosts = createAsyncThunk(
     "posts/fetchPosts",
-    async ({ username, search, page }) => {
+    async ({ username, search, page = 1 }) => {
+        const limit = 2;
+        if (search) {
+            const res = await API.get(
+                `/posts?search=${search}&limit=${limit}&page=${page ?? 1}`
+            );
+            console.log(res.data);
+            return res.data;
+        }
         if (username) {
             const res = await API.get(`/posts/${username}/posts`);
+            console.log(res.data);
             return res.data;
         }
         if (page) {
-            const res = await API.get(`/posts?page=${page}`);
+            const res = await API.get(`/posts?page=${page}&limit=${limit}`);
+            console.log(res.data);
             return res.data;
         }
-        if (search) {
-            const res = await API.get(`/posts?search=${search}`);
-            return res.data;
-        }
-        const res = await API.get(`/posts`);
+
+        const res = await API.get(`/posts?limit=${limit}`);
+        console.log(res.data);
         return res.data;
     }
 );

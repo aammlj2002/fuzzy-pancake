@@ -1,11 +1,12 @@
-export default ({ count, limit, page }) => {
+export default ({ count, limit, page, search }) => {
+    console.log(search);
     const totalPage = Math.ceil(count / limit);
 
     const pagination = [];
     for (let i = 0; i < totalPage; i++) {
         if (i < 2 || (page > i - 2 && page < i + 4) || i >= totalPage - 2) {
             pagination.push({
-                url: `?page=${i + 1}`,
+                url: `?page=${i + 1}${search && `&search=${search}`}`,
                 label: `${i + 1}`,
                 active: i + 1 == page ? true : false,
             });
@@ -19,13 +20,23 @@ export default ({ count, limit, page }) => {
     }
     return [
         {
-            url: page == 1 ? null : `?page=${parseInt(page) - 1}`,
+            url:
+                page == 1
+                    ? null
+                    : `?page=${parseInt(page) - 1}${
+                          search && `&search=${search}`
+                      }`,
             label: "previous",
             active: false,
         },
         ...pagination,
         {
-            url: page == totalPage ? null : `?page=${parseInt(page) + 1}`,
+            url:
+                page == totalPage
+                    ? null
+                    : `?page=${parseInt(page) + 1}${
+                          search && `&search=${search}`
+                      }`,
             label: "next",
             active: false,
         },

@@ -1,5 +1,5 @@
-GET http://localhost:8000/posts?page=1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY1MDc5Njk3OCwiZXhwIjoxNjUwODAyOTc4fQ._GdMeiWR8i1tLeXh_eNkMfh3YUCXRTOTPcAxfm_VFD8
+GET http://localhost:8000/posts/zoro123/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTI4OTYwNDA4ZTk1OTQyMDhhNzdhNCIsImlhdCI6MTY1MDk1MDMyNSwiZXhwIjoxNjUwOTU2MzI1fQ.SatG_U00-goxsHHQz8r8RT4xWAiFpVzsOY6Zv1DqUro
 
 ###
 GET http://localhost:8000/posts?search=zoro

@@ -8,6 +8,7 @@ import Profile from "../../components/Profile";
 function EditProfilePage() {
     const { username } = useParams();
     const posts = useSelector((state) => state.posts.posts);
+    console.log(posts);
 
     return (
         <>

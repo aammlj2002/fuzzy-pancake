@@ -10,24 +10,32 @@ const isExist = (id) => {
     }
 };
 const index = async (req, res) => {
-    const { search, page = 1 } = req.query;
-    const limit = 2;
+    const { search = "", page = 1, limit = 10 } = req.query;
+
     try {
         // get all post
         if (search) {
             const searchQuery = new RegExp(search, "i");
-            const post = await Post.find({
+            const posts = await Post.find({
                 $or: [{ title: searchQuery }, { description: searchQuery }],
-            }).populate("user");
-            return res.status(200).json(post);
+            })
+                .limit(limit)
+                .skip(limit * (page - 1))
+                .populate("user");
+            const count = await Post.find({
+                $or: [{ title: searchQuery }, { description: searchQuery }],
+            }).countDocuments();
+            console.log(count);
+            const links = paginate({ count, limit, page, search });
+            return res.status(200).json({ posts, links });
         }
         const count = await Post.countDocuments();
-        const links = paginate({ count, limit, page });
-        console.log(links);
+        const links = paginate({ count, limit, page, search });
 
         const posts = await Post.find()
             .limit(limit)
-            .skip(limit * (page - 1));
+            .skip(limit * (page - 1))
+            .populate("user");
         return res.status(200).json({
             links,
             posts,
@@ -165,13 +173,8 @@ const getPostByUser = async (req, res) => {
         const user = await User.findOne({ username });
 
         // populate posts and posts' user
-        const { posts } = await user.populate({
-            path: "posts",
-            populate: { path: "user" },
-        });
-        console.log(posts);
-
-        return res.status(200).json(posts);
+        const posts = await Post.find({ username }).populate("user");
+        return res.status(200).json({ posts, links: null });
     } catch (error) {
         return res.status(500).json({ message: "something went wrong" });
     }
