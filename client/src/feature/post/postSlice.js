@@ -107,10 +107,16 @@ const postSlice = createSlice({
         setEditPost: (state, action) => {
             state.editPost = action.payload;
         },
+        clearPosts: (state, action) => {
+            state = { ...state, user: {}, posts: [], links: [], editPost: {} };
+            console.log(state);
+        },
     },
     extraReducers: {
+        [fetchPosts.pending]: (state, action) => {
+            return { ...state, posts: [] };
+        },
         [fetchPosts.fulfilled]: (state, action) => {
-            console.log("slice", action.payload);
             return {
                 ...state,
                 posts: action.payload.posts,
@@ -156,5 +162,5 @@ const postSlice = createSlice({
         },
     },
 });
-export const { setEditPost } = postSlice.actions;
+export const { setEditPost, clearPosts } = postSlice.actions;
 export default postSlice.reducer;

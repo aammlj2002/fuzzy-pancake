@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 function Profile() {
     const user = useSelector((state) => state.posts.user);
-    console.log("form profile card", user);
     return (
         <>
             {user && (

@@ -31,6 +31,7 @@ const index = async (req, res) => {
                 $or: [{ title: searchQuery }, { description: searchQuery }],
             }).countDocuments();
             const links = paginate({ count, limit, page, search });
+            p;
             return res.status(200).json({ posts, links });
         }
         const count = await Post.countDocuments();

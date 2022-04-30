@@ -4,8 +4,9 @@ import { useSearchParams } from "react-router-dom";
 import PostCard from "../../components/PostCard";
 import PostCreateForm from "../../components/PostCreateForm";
 import PostEditForm from "../../components/PostEditForm";
-import { fetchPosts } from "../../feature/post/postSlice";
+import { clearPosts, fetchPosts } from "../../feature/post/postSlice";
 import Pagination from "../../components/Pagination";
+import PostCardSkeleton from "../../components/SkeletonLoaders/PostCardSkeleton";
 
 function Posts() {
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function Posts() {
                                     <PostCard key={post._id} post={post} />
                                 ))
                             ) : (
-                                <div>loading...</div>
+                                <PostCardSkeleton />
                             )}
                         </div>
                         <Pagination links={links} />

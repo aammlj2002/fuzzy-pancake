@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import PostCard from "../../components/PostCard";
 import ProfileEditForm from "../../components/ProfileEditForm";
 import Profile from "../../components/Profile";
-import { fetchPosts } from "../../feature/post/postSlice";
+import { clearPosts, fetchPosts } from "../../feature/post/postSlice";
+import PostCardSkeleton from "../../components/SkeletonLoaders/PostCardSkeleton";
 
 function EditProfilePage() {
     const dispatch = useDispatch();
@@ -12,7 +13,6 @@ function EditProfilePage() {
     const posts = useSelector((state) => state.posts.posts);
     useEffect(() => {
         dispatch(fetchPosts({ username }));
-        console.log("foo");
     }, [dispatch]);
 
     return (
@@ -24,12 +24,15 @@ function EditProfilePage() {
                         <ProfileEditForm username={username} />
                     </div>
                     <div className="w-1/2">
-                        {posts.length !== 0 &&
+                        {posts.length !== 0 ? (
                             posts.map((post) => (
                                 <div className="mb-5" key={post._id}>
                                     <PostCard post={post}></PostCard>
                                 </div>
-                            ))}
+                            ))
+                        ) : (
+                            <PostCardSkeleton />
+                        )}
                     </div>
                 </div>
             </div>
