@@ -66,7 +66,6 @@ function PostCreateForm() {
         const filteredTags = getValues("tags").filter(
             (tag, index) => index !== seletedIndex
         );
-        console.log(filteredTags);
         watch(register());
         setValue("tags", [...filteredTags]);
     };

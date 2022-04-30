@@ -11,21 +11,25 @@ const isExist = (id) => {
 };
 const index = async (req, res) => {
     const { search = "", page = 1, limit = 10 } = req.query;
-
+    const { username } = req.params;
     try {
+        if (username) {
+            const user = await User.findOne({ username }).populate("posts");
+            return res.status(200).json({ user, posts: user.posts, links: [] });
+        }
         // get all post
         if (search) {
             const searchQuery = new RegExp(search, "i");
-            const posts = await Post.find({
+            const query = Post.find({
                 $or: [{ title: searchQuery }, { description: searchQuery }],
-            })
+            });
+            const posts = await query
                 .limit(limit)
                 .skip(limit * (page - 1))
                 .populate("user");
             const count = await Post.find({
                 $or: [{ title: searchQuery }, { description: searchQuery }],
             }).countDocuments();
-            console.log(count);
             const links = paginate({ count, limit, page, search });
             return res.status(200).json({ posts, links });
         }
@@ -46,7 +50,6 @@ const index = async (req, res) => {
 };
 const create = async (req, res) => {
     const reqPost = req.body;
-    console.log(reqPost);
     try {
         try {
             // create post
@@ -156,7 +159,6 @@ const addLike = async (req, res) => {
                 action,
                 { new: true } // new option "true" is to get response data only after update
             );
-
             //pupulate author
             await post.populate("user");
             return res.status(200).json(post);
@@ -167,16 +169,5 @@ const addLike = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 };
-const getPostByUser = async (req, res) => {
-    try {
-        const username = req.params.username;
-        const user = await User.findOne({ username });
 
-        // populate posts and posts' user
-        const posts = await Post.find({ username }).populate("user");
-        return res.status(200).json({ posts, links: null });
-    } catch (error) {
-        return res.status(500).json({ message: "something went wrong" });
-    }
-};
-export { index, create, update, destroy, addLike, getPostByUser };
+export { index, create, update, destroy, addLike };

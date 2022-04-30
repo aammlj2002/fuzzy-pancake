@@ -25,9 +25,9 @@ function ProfileEditForm({ username }) {
             .min(5, "username must be at least 5 character"),
         avatar: Yup.string(),
     });
-    useEffect(() => {
-        dispatch(fetchPosts({ username }));
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(fetchPosts({ username }));
+    // }, [dispatch]);
     useEffect(() => {
         // reset after profile is fetched
         reset({

@@ -10,7 +10,7 @@ function Pagination({ links }) {
         <>
             <div className="flex flex-col items-center p-8">
                 <div className="flex items-center ">
-                    {links.length ? (
+                    {links.length &&
                         links.map((link) => (
                             <Link
                                 key={link.label}
@@ -52,10 +52,7 @@ function Pagination({ links }) {
                                     link.label
                                 )}
                             </Link>
-                        ))
-                    ) : (
-                        <div>loading...</div>
-                    )}
+                        ))}
                 </div>
             </div>
         </>

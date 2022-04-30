@@ -1,5 +1,4 @@
 export default ({ count, limit, page, search }) => {
-    console.log(search);
     const totalPage = Math.ceil(count / limit);
 
     const pagination = [];

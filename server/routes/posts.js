@@ -5,7 +5,6 @@ import {
     update,
     destroy,
     addLike,
-    getPostByUser,
 } from "../controllers/post.js";
 import auth from "../middleware/auth.js";
 const router = express.Router();
@@ -15,6 +14,6 @@ router.post("/create", auth, create);
 router.patch("/update/:id", auth, update);
 router.delete("/delete/:id", auth, destroy);
 router.patch("/like/:id", auth, addLike);
-router.get("/:username/posts", getPostByUser);
+router.get("/:username", auth, index);
 
 export default router;

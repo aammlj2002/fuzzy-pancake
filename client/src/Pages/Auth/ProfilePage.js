@@ -1,14 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import PostCard from "../../components/PostCard";
 import ProfileEditForm from "../../components/ProfileEditForm";
 import Profile from "../../components/Profile";
+import { fetchPosts } from "../../feature/post/postSlice";
 
 function EditProfilePage() {
+    const dispatch = useDispatch();
     const { username } = useParams();
     const posts = useSelector((state) => state.posts.posts);
-    console.log(posts);
+    useEffect(() => {
+        dispatch(fetchPosts({ username }));
+        console.log("foo");
+    }, [dispatch]);
 
     return (
         <>

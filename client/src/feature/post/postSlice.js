@@ -33,29 +33,20 @@ export const fetchPosts = createAsyncThunk(
             const res = await API.get(
                 `/posts?search=${search}&limit=${limit}&page=${page ?? 1}`
             );
-            console.log(res.data);
             return res.data;
         }
         if (username) {
-            const res = await API.get(`/posts/${username}/posts`);
-            console.log(res.data);
-            return res.data;
-        }
-        if (page) {
-            const res = await API.get(`/posts?page=${page}&limit=${limit}`);
-            console.log(res.data);
+            const res = await API.get(`/posts/${username}`);
             return res.data;
         }
 
-        const res = await API.get(`/posts?limit=${limit}`);
-        console.log(res.data);
+        const res = await API.get(`/posts?page=${page ?? 1}&limit=${limit}`);
         return res.data;
     }
 );
 export const createPost = createAsyncThunk(
     "posts/createPost",
     async (newPost) => {
-        console.log(newPost);
         const res = await API.post(`/posts/create`, newPost, {
             headers: {
                 "Content-Type": "application/json",
@@ -107,6 +98,7 @@ export const likePost = createAsyncThunk("posts/likePost", async (post_id) => {
 const postSlice = createSlice({
     name: "Posts",
     initialState: {
+        user: {},
         posts: [],
         links: [],
         editPost: {},
@@ -118,10 +110,12 @@ const postSlice = createSlice({
     },
     extraReducers: {
         [fetchPosts.fulfilled]: (state, action) => {
+            console.log("slice", action.payload);
             return {
                 ...state,
                 posts: action.payload.posts,
                 links: action.payload.links,
+                user: action.payload.user,
             };
         },
         [createPost.fulfilled]: (state, action) => {
