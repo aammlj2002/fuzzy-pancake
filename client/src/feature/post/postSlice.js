@@ -4,7 +4,7 @@ import decode from "jwt-decode";
 
 const currentUser = decode(JSON.parse(localStorage.getItem("accessToken")));
 const API = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "http://localhost:8001",
 });
 // add authorization token in request header with interceptors
 API.interceptors.request.use(async (req) => {

@@ -14,7 +14,10 @@ const index = async (req, res) => {
     const { username } = req.params;
     try {
         if (username) {
-            const user = await User.findOne({ username }).populate("posts");
+            const user = await User.findOne({ username }).populate({
+                path: "posts",
+                populate: { path: "user" },
+            });
             return res.status(200).json({ user, posts: user.posts, links: [] });
         }
         // get all post
@@ -31,7 +34,6 @@ const index = async (req, res) => {
                 $or: [{ title: searchQuery }, { description: searchQuery }],
             }).countDocuments();
             const links = paginate({ count, limit, page, search });
-            p;
             return res.status(200).json({ posts, links });
         }
         const count = await Post.countDocuments();
