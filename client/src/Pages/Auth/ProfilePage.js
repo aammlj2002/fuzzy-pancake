@@ -19,7 +19,7 @@ function EditProfilePage() {
         <>
             <div className="w-4/6 py-12 mx-auto bg-gray-100">
                 <div className="flex flex-row items-start gap-5">
-                    <div>
+                    <div className="w-1/2">
                         <Profile />
                         <ProfileEditForm username={username} />
                     </div>
@@ -31,7 +31,10 @@ function EditProfilePage() {
                                 </div>
                             ))
                         ) : (
-                            <PostCardSkeleton />
+                            <>
+                                <PostCardSkeleton />
+                                <PostCardSkeleton />
+                            </>
                         )}
                     </div>
                 </div>

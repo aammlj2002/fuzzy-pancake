@@ -3,7 +3,7 @@ import React from "react";
 function PostCardSkeleton() {
     return (
         <>
-            <div className="w-full m-auto overflow-hidden rounded-lg shadow-sm cursor-pointer h-90">
+            <div className="w-full m-auto mb-5 overflow-hidden rounded-lg shadow-sm cursor-pointer h-90">
                 <div className="block w-full h-full">
                     <div className="object-cover w-full max-h-40">
                         <div className="w-full bg-gray-300 h-96"></div>

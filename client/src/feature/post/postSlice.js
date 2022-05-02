@@ -98,7 +98,7 @@ export const likePost = createAsyncThunk("posts/likePost", async (post_id) => {
 const postSlice = createSlice({
     name: "Posts",
     initialState: {
-        user: {},
+        user: null,
         posts: [],
         links: [],
         editPost: {},
@@ -109,7 +109,6 @@ const postSlice = createSlice({
         },
         clearPosts: (state, action) => {
             state = { ...state, user: {}, posts: [], links: [], editPost: {} };
-            console.log(state);
         },
     },
     extraReducers: {

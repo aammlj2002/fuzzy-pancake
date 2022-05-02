@@ -37,7 +37,10 @@ function Posts() {
                                     <PostCard key={post._id} post={post} />
                                 ))
                             ) : (
-                                <PostCardSkeleton />
+                                <>
+                                    <PostCardSkeleton />
+                                    <PostCardSkeleton />
+                                </>
                             )}
                         </div>
                         <Pagination links={links} />

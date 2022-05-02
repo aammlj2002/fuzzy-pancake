@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import PaginationSkeleton from "./SkeletonLoaders/PaginationSkeleton";
 
 function Pagination({ links }) {
     const location = useLocation();
@@ -10,7 +11,7 @@ function Pagination({ links }) {
         <>
             <div className="flex flex-col items-center p-8">
                 <div className="flex items-center ">
-                    {links.length &&
+                    {links.length ? (
                         links.map((link) => (
                             <Link
                                 key={link.label}
@@ -52,7 +53,10 @@ function Pagination({ links }) {
                                     link.label
                                 )}
                             </Link>
-                        ))}
+                        ))
+                    ) : (
+                        <PaginationSkeleton />
+                    )}
                 </div>
             </div>
         </>

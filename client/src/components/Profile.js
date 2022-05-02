@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import ProfileSkeleton from "./SkeletonLoaders/ProfileSkeleton";
 
 function Profile() {
     const user = useSelector((state) => state.posts.user);
     return (
         <>
-            {user && (
+            {user ? (
                 <div className="py-8 mb-5 bg-white rounded-lg shadow px-7">
                     <div className="flex flex-row items-center gap-8">
                         <img
@@ -23,6 +24,8 @@ function Profile() {
                         </div>
                     </div>
                 </div>
+            ) : (
+                <ProfileSkeleton />
             )}
         </>
     );
